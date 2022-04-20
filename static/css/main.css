@@ -1,0 +1,52 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.cont-log{
+    width: 100%;
+    max-width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: rgba(0,0,0,0.6);
+    padding: 15px;
+    border-radius: 50px;
+}
+
+.icon-box{
+    width: 150px;
+    height: 150px;
+    border-radius: 90px;
+    background-color: rgba(255,255,255,0.8);
+    box-shadow: 0px 6px 5px rgba(0, 141, 249, 0.5);
+    margin: auto;
+    overflow: hidden;
+    background-image: url('../media/icons/Logo.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+}
+
+.separador{
+    color: #fff;
+    width: 80%;
+    margin: auto;
+}
+
+.body-form{
+    width: 90%;
+    margin: auto;
+}
+
+.form-foot{
+    color: #fff;
+    width: 60%;
+    margin: auto;
+}
+
+.form-foot h6{
+    font-size: 10px;
+}
