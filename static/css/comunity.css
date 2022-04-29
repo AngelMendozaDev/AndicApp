@@ -1,17 +1,50 @@
-*{
+* {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
 }
 
-.cont-form{
+.cont-form {
     display: flex;
     overflow: hidden;
 }
 
-.part{
-    position: absolute;
-    top: 0px;
-    left: 0px;
+.part {
     width: 100%;
+}
+
+.form-flex {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    margin: auto;
+}
+
+.form-flex .input-group {
+    margin: 0px 5px 0px 5px;
+}
+
+.cont-sex {
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+.cont-sex {
+    font-size: 25px;
+}
+
+.cont-sex label {
+    cursor: pointer;
+}
+
+.controller-form {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    background-color: aqua;
+}
+
+.btn-controllers {
+    display: flex;
 }

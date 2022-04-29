@@ -1,5 +1,6 @@
 <?php
 require_once "master.php";
+error_reporting(E_WARNING);
 
 class Procedures extends Master
 {

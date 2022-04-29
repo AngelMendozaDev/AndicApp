@@ -23,7 +23,7 @@
         </button>
 
         <!-- Modal -->
-        <div class="modal fade" id="ModalControl" tabindex="-1" aria-labelledby="ModalControlLabel" aria-hidden="true">
+        <div class="modal fade" id="ModalControl" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -36,9 +36,56 @@
                             <div class="cont-form">
                                 <!-- Parte Info Personal -->
                                 <div class="part" id="part-0">
-                                    <div class="input-group">
+                                    <div class="input-group mb-3">
                                         <span class="input-group-text">Nombre:</span>
-                                        <input type="text" class="form-control" name="campo-1" required>
+                                        <input type="text" class="form-control" name="name" required>
+                                    </div>
+                                    <div class="form-flex">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">Ap. Paterno:</span>
+                                            <input type="text" class="form-control" name="app" required>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">Ap. Materno:</span>
+                                            <input type="text" class="form-control" name="apm" required>
+                                        </div>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                                            &nbsp;
+                                            Correo:
+                                        </span>
+                                        <input type="email" class="form-control" name="mail" required>
+                                    </div>
+                                    <div class="form-flex">
+                                        <div class="input-group h-100 cont-sex">
+                                            <span class="input-group-text">Sexo:</span>
+                                            <div class="sex-group mx-auto">
+                                                <input type="radio" name="sex" value="F" class="myCampo" id="sex-f" required>
+                                                <label for="sex-f">
+                                                    <i class="fa fa-female mr-5" aria-hidden="true"></i>
+                                                </label>
+                                            </div>
+                                            <div class="sex-group mx-auto">
+                                                <input type="radio" name="sex" value="M" class="myCampo" id="sex-m" required>
+                                                <label for="sex-m">
+                                                    <i class="fa fa-male" aria-hidden="true"></i>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-calendar-check" aria-hidden="true"></i>
+                                            </span>
+                                            <input type="date" class="form-control" name="nacimiento" required>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">
+                                                <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                                            </span>
+                                            <input type="text" class="form-control" name="campo-1" required>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Parte de Domicilio -->
@@ -56,19 +103,22 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="btn-controllers mt-3 mb-3">
-                                <button type="button" id="arrow-left">
-                                    <i class="fas fa-arrow-left" aria-hidden="true"></i>
-                                </button>
-                                <button type="button" id="arrow-right">
-                                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                                </button>
+
+                            <div class="controller-form">
+                                <button type="submit">Enviar</button>
+                                <div class="btn-controllers mt-3 mb-3">
+                                    <button type="button" id="arrow-left">
+                                        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" id="arrow-right">
+                                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                                    </button>
+                                </div>
                             </div>
-                            <button type="submit">Enviar</button>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
