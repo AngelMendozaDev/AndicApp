@@ -1,0 +1,17 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.cont-form{
+    display: flex;
+    overflow: hidden;
+}
+
+.part{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+}

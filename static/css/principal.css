@@ -1,0 +1,42 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+.contenedor {
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 3px 5px 5px rgb(0 0 0 / 50%);
+    background-color: rgba(235, 237, 239,0.5);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    padding: 20px 10px;
+}
+
+.myButton {
+    padding: 10px;
+    background-color: #070e3fef;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    box-shadow: 3px 3px 5px rgb(12, 100, 159);
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.5s;
+    text-decoration: none;
+}
+
+.myButton:hover{
+    color: aqua;
+}
+
+.peq{
+    font-size: 25px;
+}
+

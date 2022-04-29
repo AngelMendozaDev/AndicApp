@@ -22,4 +22,25 @@ class Procedures extends Master
 
         return -1;
     }
+
+    public function getPicture($person){
+        $conn = Master::conexion();
+        if ($conn == 3)
+            return 'err';
+        
+        $query = $conn->prepare('SELECT picture FROM angeles WHERE id_angel = ?');
+        $query->bind_param('s', $person);
+        $query->execute();
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        if ($result->num_rows > 0){
+            $data = $result->fetch_assoc();
+            return $data['picture'];
+        }
+
+        return -1;
+    }
 }
