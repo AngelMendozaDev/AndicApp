@@ -7,6 +7,7 @@ function getColonia(code) {
         data: { tipo: 'getCols', code },
         success: function(response) {
             console.log(response);
+            if (response.trim() != "Nan") {}
         }
     });
 }

@@ -6,7 +6,7 @@ $Type = $_POST['tipo'];
 
 switch($Type){
     case 'getCols':
-        print_r(json_encode($model->getCols($_POST['code'])));
+        echo json_encode($model->getCols($_POST['code']));
         break;
 
     default:
