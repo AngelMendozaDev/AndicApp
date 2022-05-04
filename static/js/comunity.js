@@ -7,6 +7,14 @@ function getColonia(code) {
         data: { tipo: 'getCols', code },
         success: function(response) {
             console.log(response);
+            if(response != "Nan"){
+                data = JSON.parse(response);
+                $('#colonia').empty();
+                $('#colonia').append("<option value='0' selected='true' disabled>--Selecciona una opcion</option>")
+                $.each(data, function(key, item){
+                    $('#colonia').append("<option value='"+item[0]+"'>"+item[1]+"</option>")
+                });
+            }
         }
     });
 }
