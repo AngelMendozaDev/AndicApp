@@ -44,4 +44,22 @@ class Procedures extends Master
 
         return -1;
     }
+
+    public function getCols($code){
+        $con = Master::conexion();
+        if($con == 3)
+            return 'err';
+            
+        $query = $con->prepare('SELECT c.n_registro, c.col, c.mun, e.estado_n FROM cp_col AS c INNER JOIN estado AS e ON e.id_estado = c.estado WHERE c.cp = ?');
+        $query->bind_param('s',$code);
+        $query->execute();
+
+        $result = $query->get_result();
+
+        $query->close();
+
+        if($result->num_rows > 0)
+            return $result->fetch_all();
+        return "Nan";
+    }
 }

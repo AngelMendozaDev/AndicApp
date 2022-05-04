@@ -18,6 +18,7 @@
     width: 100%;
     padding: 10px;
     margin: auto;
+    margin-top: 5px;
 }
 
 .form-flex .input-group {
@@ -38,13 +39,30 @@
     cursor: pointer;
 }
 
-.controller-form {
-    display: flex;
-    align-self: center;
-    align-items: center;
-    background-color: aqua;
+.control-form {
+    display: block;
+    text-align: center;
 }
 
 .btn-controllers {
     display: flex;
+    margin: auto;
+    margin-bottom: 3px;
+    width: 40%;
+    justify-content: center;
+    justify-items: center;
+}
+
+.c-mayusc {
+    text-transform: uppercase;
+}
+
+.my-control {
+    margin: auto;
+}
+
+@media (max-width:700px) {
+    .form-flex {
+        display: block;
+    }
 }

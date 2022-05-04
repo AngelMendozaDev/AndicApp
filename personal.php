@@ -38,16 +38,16 @@
                                 <div class="part" id="part-0">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">Nombre:</span>
-                                        <input type="text" class="form-control" name="name" required>
+                                        <input type="text" class="form-control c-mayusc" name="nombre" placeholder="Nombre(s)" maxlength="30" required>
                                     </div>
                                     <div class="form-flex">
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">Ap. Paterno:</span>
-                                            <input type="text" class="form-control" name="app" required>
+                                            <input type="text" class="form-control c-mayusc" maxlength="25" placeholder="Apellido Paterno" name="app" required>
                                         </div>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">Ap. Materno:</span>
-                                            <input type="text" class="form-control" name="apm" required>
+                                            <input type="text" class="form-control c-mayusc" maxlength="25" placeholder="Apellido Materno" name="apm" required>
                                         </div>
                                     </div>
                                     <div class="input-group mb-3">
@@ -56,10 +56,10 @@
                                             &nbsp;
                                             Correo:
                                         </span>
-                                        <input type="email" class="form-control" name="mail" required>
+                                        <input type="email" class="form-control" name="mail" placeholder="someMail@andic.org.mx" maxlength="60" required>
                                     </div>
                                     <div class="form-flex">
-                                        <div class="input-group h-100 cont-sex">
+                                        <div class="input-group h-100 mb-3 cont-sex">
                                             <span class="input-group-text">Sexo:</span>
                                             <div class="sex-group mx-auto">
                                                 <input type="radio" name="sex" value="F" class="myCampo" id="sex-f" required>
@@ -84,15 +84,27 @@
                                             <span class="input-group-text">
                                                 <i class="fab fa-whatsapp" aria-hidden="true"></i>
                                             </span>
-                                            <input type="text" class="form-control" name="campo-1" required>
+                                            <input type="text" class="form-control" name="phone" placeholder="Número a 10 digitos" required>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Parte de Domicilio -->
                                 <div class="part" id="part-1">
                                     <div class="input-group">
-                                        <span class="input-group-text">Apellido Paterno:</span>
-                                        <input type="text" class="form-control" name="campo-2" required>
+                                        <span class="input-group-text">Calle:</span>
+                                        <input type="text" class="form-control" name="calle" required>
+                                    </div>
+                                    <div class="form-flex">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Código Postal:</span>
+                                            <input type="text" class="form-control" name="cp" id="cp" required>
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-text">Colonia:</span>
+                                            <select name="colonia" id="colonia" class="form-select">
+                                                <option value="" selected="true" disabled> Selecciona una opcion...</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Parte de Foto -->
@@ -104,16 +116,19 @@
                                 </div>
                             </div>
 
-                            <div class="controller-form">
-                                <button type="submit">Enviar</button>
+                            <div class="control-form">
                                 <div class="btn-controllers mt-3 mb-3">
-                                    <button type="button" id="arrow-left">
+                                    <button type="button" class="btn btn-primary btn-small my-control" id="arrow-left">
                                         <i class="fas fa-arrow-left" aria-hidden="true"></i>
                                     </button>
-                                    <button type="button" id="arrow-right">
+                                    <button type="button" class="btn btn-primary btn-small my-control" id="arrow-right">
                                         <i class="fas fa-arrow-right" aria-hidden="true"></i>
                                     </button>
                                 </div>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                    Enviar
+                                </button>
                             </div>
                         </form>
                     </div>
