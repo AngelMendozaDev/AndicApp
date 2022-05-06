@@ -31,7 +31,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" onsubmit="return setInfo()">
+                        <form method="POST" onsubmit="return setInfo()" class="needs-validation">
                             <h5 id="title-form"></h5>
                             <div class="cont-form">
                                 <!-- Parte Info Personal -->
@@ -87,31 +87,56 @@
                                             <input type="text" class="form-control" name="phone" placeholder="Número a 10 digitos" required>
                                         </div>
                                     </div>
+                                    <div class="input-group mb-3">
+                                        <label for="myTipo" class="input-group-text">Tipo de Angel:</label>
+                                        <select name="tipo" id="myTipo" class="form-select">
+                                            <option value="" selected="true" disabled>--Selecciona una opción</option>
+                                            <option value="C">Comunidad</option>
+                                            <option value="P">Personal</option>
+                                            <option value="R">Representante</option>
+                                            <option value="S">Servicio Social/Residencias</option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="file" class="form-control" accept=".jpg, .jpeg, .png" id="Archivo">
+                                    </div>
                                 </div>
                                 <!-- Parte de Domicilio -->
                                 <div class="part" id="part-1">
-                                    <div class="input-group">
+                                    <div class="input-group mb-3">
                                         <span class="input-group-text">Calle:</span>
                                         <input type="text" class="form-control" name="calle" required>
                                     </div>
                                     <div class="form-flex">
-                                        <div class="input-group">
+                                        <div class="input-group mb-3">
                                             <span class="input-group-text">Código Postal:</span>
                                             <input type="text" class="form-control" name="cp" id="cp" required>
                                         </div>
-                                        <div class="input-group">
+                                        <div class="input-group mb-3">
                                             <span class="input-group-text">Colonia:</span>
                                             <select name="colonia" id="colonia" class="form-select">
                                                 <option value="" selected="true" disabled> Selecciona una opcion...</option>
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="form-flex">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">Alcaldía:</span>
+                                            <input type="text" class="form-control" name="alc" id="alc" readonly required>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">Estado:</span>
+                                            <input type="text" class="form-control" name="edo" id="edo" readonly required>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- Parte de Foto -->
                                 <div class="part" id="part-2">
-                                    <div class="input-group">
-                                        <span class="input-group-text">Apellido Materno</span>
-                                        <input type="text" class="form-control" name="campo-3" required>
+                                    <div class="servicio">
+                                        <div class="input-group">
+                                            <span class="input-group-text">Escuela</span>
+                                            <input type="text" class="form-control" name="campo-3" required>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
