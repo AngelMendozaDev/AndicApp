@@ -1,5 +1,5 @@
-<?php 
-session_start(); 
+<?php
+session_start();
 require_once "classes/funciones.php";
 $model = new Procedures();
 $foto = $model->getPicture($_SESSION['ID']);
@@ -16,6 +16,8 @@ $picture =  $foto != -1 ? $foto : "NO_DATA.png";
     <link rel="icon" href="static/media/icons/Logo.png">
     <link rel="stylesheet" href="static/libs/bootstrap-5/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/libs/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="static/libs/datatable/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="static/libs/datatable/css/buttons.dataTables.min.css">
     <link rel="stylesheet" href="static/css/plant.css">
 </head>
 
@@ -67,9 +69,9 @@ $picture =  $foto != -1 ? $foto : "NO_DATA.png";
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="flush-headingOne">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                            Comunidad Andic
-                            &nbsp;
                             <i class="fa fa-users" aria-hidden="true"></i>
+                            &nbsp;
+                            Comunidad Andic
                         </button>
                     </h2>
                     <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionOptions">
@@ -101,9 +103,9 @@ $picture =  $foto != -1 ? $foto : "NO_DATA.png";
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="flush-headingTwo">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                            Eventos
-                            &nbsp;
                             <i class="fa fa-calendar" aria-hidden="true"></i>
+                            &nbsp;
+                            Eventos
                         </button>
                     </h2>
                     <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionOptions">
@@ -133,13 +135,33 @@ $picture =  $foto != -1 ? $foto : "NO_DATA.png";
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="flush-headingThree">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                            Other Options
+                            <i class="fa fa-globe" aria-hidden="true"></i>
                             &nbsp;
-                            <i class="fa fa-folder-open" aria-hidden="true"></i>
+                            Controles de Pagina
                         </button>
                     </h2>
                     <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionOptions">
-                        <div class="accordion-body">Alguna otra Opcion</div>
+                        <ul class="sub-menu">
+                            <li class="option">
+                                <a href="metas.php">
+                                    <i class="fas fa-calendar-plus"></i>
+                                    &nbsp;
+                                    Linea temporal
+                                </a>
+                            </li>
+                            <li class="option">
+                                <a href="">
+                                    <i class="fab fa-xbox    "></i>
+                                    Publicaciones
+                                </a>
+                            </li>
+                            <li class="option">
+                                <a href="">
+                                    <i class="fab fa-xbox    "></i>
+                                    optionx
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
