@@ -62,4 +62,36 @@ class Procedures extends Master
             return $result->fetch_all();
         return "Nan";
     }
+
+    /**************************
+        Actions Crud
+    */
+    public function getActions(){
+        $con = Master::conexion();
+        if($con == 3)
+            return 'err';
+        $query = $con->prepare("select * from getAllActions");
+        $query->execute();
+        $result = $query->get_result();
+        $query->close();
+
+        return $result;
+    }
+
+    public function getAction($action){
+        $con = Master::conexion();
+        if($con == 3)
+            return 'err';
+        $query = $con->prepare("SELECT * FROM acciones WHERE id_accion = ?");
+        $query->bind_param('s',$action);
+        $query->execute();
+        $result = $query->get_result();
+        $query->close();
+
+        if($result->num_rows > 0){
+            return $result->fetch_assoc();    
+        }
+
+        return "Nan";
+    }
 }
