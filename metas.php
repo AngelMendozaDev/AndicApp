@@ -42,7 +42,7 @@ $result = $model->getActions();
     <hr>
     <div class="cont-body">
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalControl">
+        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalControl" onclick="$('#typeAction').val('C')">
             <i class="fa fa-plus" aria-hidden="true"></i>
             Nuevo acontecimiento
         </button>
@@ -100,10 +100,11 @@ $result = $model->getActions();
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" class="myForm">
+                <form method="POST" class="myForm" onsubmit="return setAction()" enctype="multipart/form-data" id="form-action">
+                    <input type="text" id="typeAction" name="typeAction" readonly>
                     <div class="input-group">
                         <span class="input-group-text">Titúlo:</span>
-                        <input type="text" class="form-control" maxlength="60" style="text-transform: uppercase;" required>
+                        <input type="text" class="form-control" name="title" maxlength="60" style="text-transform: uppercase;" required>
                     </div>
 
                     <div class="form-flex">
@@ -112,7 +113,7 @@ $result = $model->getActions();
                             <?php
                             $cont = date('Y');
                             ?>
-                            <select name="año" id="year" class="form-select" required>
+                            <select name="año" id="year" name="years" class="form-select" required>
                                 <?php while ($cont >= 2000) { ?>
                                     <option value="<?php echo ($cont); ?>"><?php echo ($cont); ?></option>
                                 <?php $cont = ($cont - 1);
@@ -121,7 +122,7 @@ $result = $model->getActions();
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text">Media</span>
-                            <select name="multimedia" id="mult" class="form-select" required>
+                            <select name="multimedia" id="mult" name="mult" class="form-select" required>
                                 <option value="" selected="true" disabled>--Selecciona una Opción</option>
                                 <option value="N">Sin media</option>
                                 <option value="I">Imagen</option>
@@ -131,9 +132,16 @@ $result = $model->getActions();
                     </div>
                     <div id="lienzo" class="mb-3"></div>
                     <div class="form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="textoArea"></textarea>
+                        <textarea class="form-control" name="coment" id="textoArea" required></textarea>
                         <label for="textoArea">Descripción de Acción</label>
                     </div>
+
+                    <center>
+                        <button class="btn btn-success mt-2 mb-3">
+                            <i class="fa fa-save" aria-hidden="true"></i>
+                            Guardar
+                        </button>
+                    </center>
                 </form>
             </div>
             <div class="modal-footer">

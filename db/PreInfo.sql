@@ -4,6 +4,15 @@ INSERT INTO persona VALUES('0','JESSICA','MENDOZA','VILLEGAS','M','2000-01-01','
 INSERT INTO angeles VALUES('1','0510','NO_DATA.PNG','1');
 INSERT INTO angeles VALUES('2','0510','NO_DATA.PNG','1');
 
+INSERT INTO acciones VALUES('0','2012','CREACION DE FUNDACIÓN','I','Logo.png','Comenzando como una iniciativa de un grupo de jóvenes para tomar acciones en beneficio de su comunidad, se funda La Asociación Nacional Para El Desarrollo Integral Comunitario.');
+INSERT INTO acciones VALUES('0','2014','TABASCO Y VERACRUZ NUESTROS AMIGOS','I','noData.png','Se recaudo y entrego en apoyo a nuestros amigos de Tabasco y Veracruz quienes fueron perjudicados por el huracán.');
+INSERT INTO acciones VALUES('0','2014','REFORESTACION EJEMPLAR','I','noData.png','Se lleva a cabo la reforestación del parque Tequesquipa con 750 árboles sembrados, así como la limpieza de este.');
+INSERT INTO acciones VALUES('0','2015','JORNADAS SOCIALES','I','noData.png','Con ayuda en Jornadas sociales se beneficiaron a más de 100 personas en la alcaldía de Tláhuac');
+INSERT INTO acciones VALUES('0','2015','RIE Y SE FELIZ','I','noData.png','Comienza el programa Risas Grandes & Pancitas Llenas, donde se les entregan juguetes, víveres y ropa a los pequeños del Pueblo de Yecahuizotl en la alcaldía Tláhuac los días 6 de enero y 30 de abril.');
+INSERT INTO acciones VALUES('0','2015','CADA PASO CUENTA','I','noData.png','En unión con la comunidad se beneficiaron a 20 personas con la donación de aparatos ortopédicos.');
+INSERT INTO acciones VALUES('0','2016','LA EDUCACION ES LA MEJRO ALIDAD','I','noData.png','Se gestionó la mejora de las primarias Rafael Ramírez Castañeda y Yecahuizotl con la finalidad de que las niñas y los niños tengan mejores condiciones para un mejor desempeño escolar.');
+INSERT INTO acciones VALUES('0','2016','JUGUEMOS COMO NIÑOS','I','noData.png','Se realiza la primera jornada del deporte y actividades culturales en Pueblo de Yecahuizotl Tláhuac, con una participación de poco más de 200 infantes.');
+
 INSERT INTO estado VALUES('0','Aguascalientes');
 INSERT INTO estado VALUES('0','Baja California');
 INSERT INTO estado VALUES('0','Baja California Sur');
