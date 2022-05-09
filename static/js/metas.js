@@ -1,46 +1,83 @@
-function viewAction(action) {
+function viewAction(action, letter) {
+    console.log(letter)
+    $('#btn-send').hide();
     $.ajax({
         url: "controllers/getInfo.php",
         type: 'POST',
         data: { tipo: "getAction", action },
-        success: function(response) {
-            console.log(response);
+        success: function (response) {
+            data = JSON.parse(response);
+            //console.log(data)
+            $('#lienzo').empty();
+            $('#title').val(data.titulo);
+            $('#year').val(data.ano);
+            $('#mult').val(data.multimedia);
+            $('#textoArea').val(data.texto);
+            if (data.multimedia == 'I')
+                $('#lienzo').append("<img src='static/media/pictures/" + data.media + "' width='100%'>");
         }
     });
+    $('#typeAction').val(letter);
+    if (letter == 'E') {
+        $('#btn-send').show();
+        $('#btn-send').html('Actualizar <i class="fas fa-sync"></i>');
+    } else
+        $('#btn-send').hide();
+}
+
+function startForm() {
+    $('#form-action')[0].reset();
+    $('#typeAction').val('C');
+    $('#btn-send').html('Guardar <i class="fas fa-save"></i>');
+    $('#lienzo').empty();
 }
 
 function setAction() {
-    var my;
-    var myFile;
-    let foto;
-
+    $('#btn-send').show();
+    var my = 0;
     if ($('#mult').val() != 'N' && $('#mult').val() != '') {
-        my = document.getElementById('media');
-        myFile = my.files[0];
-        foto = myFile.toDataURL(); //Esta es la foto, en base 64
-    }
-
-    console.log(foto)
-
-    $.ajax({
-        url: "controllers/setInfo.php",
-        type: 'POST',
-        headers: {
-            "Content-type": "application/x-www-form-urlencoded",
-        },
-        data: { data: $('#form-action').serialize(), foto: encodeURIComponent(foto) },
-        success: function(response) {
-            console.log(response);
+        my = $('#media').val().length
+        if (my > 0) {
+            var formulario = $('#form-action');
+            var datos = formulario.serialize();
+            var archivos = new FormData();
+            for (var i = 0; i < (formulario.find('input[type=file]').length); i++) {
+                archivos.append((formulario.find('input[type="file"]:eq(' + i + ')').attr('name')), ((formulario.find('input[type="file"]:eq(' + i + ')')[0]).files[0]));
+            }
+            $.ajax({
+                url: 'controllers/setInfoI.php?' + datos,
+                type: 'POST',
+                contentType: false,
+                data: archivos,
+                processData: false,
+                beforeSend: function () {
+                    console.log("cargando...");
+                },
+                success: function (response) {
+                    console.log(response);
+                }
+            });
         }
-    });
-
+        else
+            swal('Selecciona un archivo para enviar', '', 'error');
+    }
+    else {
+        $.ajax({
+            url: 'controllers/setInfo.php',
+            type: 'POST',
+            data: $('#form-action').serialize(),
+            success: function (response) {
+                console.log(response);
+            }
+        });
+    }
     return false;
 }
 
-$(function() {
+$(function () {
     $("#tabla").dataTable();
 
-    $("#mult").change(function() {
+    $("#mult").change(function () {
         dato = $('#mult').val();
         $('#lienzo').empty();
         if (dato == 'I') {
@@ -49,13 +86,6 @@ $(function() {
                 "<i class='fas fa-image'></i>" +
                 "</span>" +
                 "<input type='file' accept='.jpeg, .jpg, .png, .gif' class='form-control' name='media' id='media' required>" +
-                "</div>");
-        } else if (dato == 'V') {
-            $('#lienzo').append("<div class='input-group'>" +
-                "<span class='input-group-text'>" +
-                "<i class='fa fa-video-camera' aria-hidden='true'></i>" +
-                "</span>" +
-                "<input type='file' accept='.avi, .mp4' class='form-control' name='media' id='media' required>" +
                 "</div>");
         }
     });

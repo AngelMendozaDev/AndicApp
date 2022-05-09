@@ -42,7 +42,7 @@ $result = $model->getActions();
     <hr>
     <div class="cont-body">
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalControl" onclick="$('#typeAction').val('C')">
+        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#modalControl" onclick="startForm()">
             <i class="fa fa-plus" aria-hidden="true"></i>
             Nuevo acontecimiento
         </button>
@@ -68,11 +68,11 @@ $result = $model->getActions();
                                 <td><?php echo $data['titulo']; ?></td>
                                 <td><?php echo $data['multimedia']; ?></td>
                                 <td>
-                                    <button class="btn btn-small btn-primary" data-bs-toggle="modal" data-bs-target="#modalControl" onclick="viewAction('<?php echo $data['id_accion']; ?>')">
+                                    <button class="btn btn-small btn-primary" data-bs-toggle="modal" data-bs-target="#modalControl" onclick="viewAction('<?php echo $data['id_accion']; ?>','V')">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                     </button>
 
-                                    <button class="btn btn-small btn-warning" onclick="('<?php echo $data['id_accion']; ?>')">
+                                    <button class="btn btn-small btn-warning" data-bs-toggle="modal" data-bs-target="#modalControl" onclick="viewAction('<?php echo $data['id_accion']; ?>', 'E')">
                                         <i class="fas fa-edit    "></i>
                                     </button>
 
@@ -96,15 +96,16 @@ $result = $model->getActions();
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalControlLabel">Modal title</h5>
+                <h5 class="modal-title" id="modalControlLabel">Acciones</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form method="POST" class="myForm" onsubmit="return setAction()" enctype="multipart/form-data" id="form-action">
                     <input type="text" id="typeAction" name="typeAction" readonly>
+                    <input type="text" id="folioAction" name="folioAction" readonly>
                     <div class="input-group">
                         <span class="input-group-text">Titúlo:</span>
-                        <input type="text" class="form-control" name="title" maxlength="60" style="text-transform: uppercase;" required>
+                        <input type="text" class="form-control" id="title" name="title" maxlength="60" style="text-transform: uppercase;" required>
                     </div>
 
                     <div class="form-flex">
@@ -126,18 +127,17 @@ $result = $model->getActions();
                                 <option value="" selected="true" disabled>--Selecciona una Opción</option>
                                 <option value="N">Sin media</option>
                                 <option value="I">Imagen</option>
-                                <option value="V">Video</option>
                             </select>
                         </div>
                     </div>
                     <div id="lienzo" class="mb-3"></div>
                     <div class="form-floating">
-                        <textarea class="form-control" name="coment" id="textoArea" required></textarea>
-                        <label for="textoArea">Descripción de Acción</label>
+                        <textarea class="form-control" placeholder="Leave a comment here" name="coment" id="textoArea" style="height: 100px;" required></textarea>
+                        <label for="textoArea">¿Qué Ocurrio?</label>
                     </div>
 
                     <center>
-                        <button class="btn btn-success mt-2 mb-3">
+                        <button type="submit" class="btn btn-success mt-2 mb-3" id="btn-send">
                             <i class="fa fa-save" aria-hidden="true"></i>
                             Guardar
                         </button>
@@ -145,8 +145,7 @@ $result = $model->getActions();
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

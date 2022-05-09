@@ -24,11 +24,12 @@ class Procedures extends Master
         return -1;
     }
 
-    public function getPicture($person){
+    public function getPicture($person)
+    {
         $conn = Master::conexion();
         if ($conn == 3)
             return 'err';
-        
+
         $query = $conn->prepare('SELECT picture FROM angeles WHERE id_angel = ?');
         $query->bind_param('s', $person);
         $query->execute();
@@ -37,7 +38,7 @@ class Procedures extends Master
 
         $query->close();
 
-        if ($result->num_rows > 0){
+        if ($result->num_rows > 0) {
             $data = $result->fetch_assoc();
             return $data['picture'];
         }
@@ -45,30 +46,32 @@ class Procedures extends Master
         return -1;
     }
 
-    public function getCols($code){
+    public function getCols($code)
+    {
         $con = Master::conexion();
-        if($con == 3)
+        if ($con == 3)
             return 'err';
-            
+
         $query = $con->prepare('SELECT c.n_registro, c.col, c.mun, e.estado_n FROM cp_col AS c INNER JOIN estado AS e ON e.id_estado = c.estado WHERE c.cp = ?');
-        $query->bind_param('s',$code);
+        $query->bind_param('s', $code);
         $query->execute();
 
         $result = $query->get_result();
 
         $query->close();
 
-        if($result->num_rows > 0)
+        if ($result->num_rows > 0)
             return $result->fetch_all();
         return "Nan";
     }
 
     /**************************
         Actions Crud
-    */
-    public function getActions(){
+     */
+    public function getActions()
+    {
         $con = Master::conexion();
-        if($con == 3)
+        if ($con == 3)
             return 'err';
         $query = $con->prepare("select * from getAllActions");
         $query->execute();
@@ -78,20 +81,54 @@ class Procedures extends Master
         return $result;
     }
 
-    public function getAction($action){
+    public function getAction($action)
+    {
         $con = Master::conexion();
-        if($con == 3)
+        if ($con == 3)
             return 'err';
         $query = $con->prepare("SELECT * FROM acciones WHERE id_accion = ?");
-        $query->bind_param('s',$action);
+        $query->bind_param('s', $action);
         $query->execute();
         $result = $query->get_result();
         $query->close();
 
-        if($result->num_rows > 0){
-            return $result->fetch_assoc();    
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
         }
 
         return "Nan";
+    }
+
+    public function setAction($object)
+    {
+        $con = Master::conexion();
+        if ($con == 3)
+            return 'err';
+
+        if ($object['multimedia'] == 'N') {
+            $media = "NoImage";
+        } else {
+            $nameFoto = $_FILES['media']['name'];
+            $data = explode(".", $nameFoto);
+            $media = self::getLastAct() + 1 . "." . $data[1];
+        }
+
+        $query = $con->prepare("CALL newAction(?,?,?,?,?)");
+        $query->bind_param('sssss', $object['año'], $object['title'], $object['multimedia'], $media, $object['coment']);
+        $response = $query->execute();
+        $query->close();
+        return $response;
+    }
+
+    public function getLastAct()
+    {
+        $con = Master::conexion();
+        if ($con == 3)
+            return 'err';
+        $query = $con->prepare("SELECT *  FROM getLastAct");
+        $query->execute();
+        $data = $query->get_result()->fetch_assoc();
+        $query->close();
+        return $data['id_accion'];
     }
 }
