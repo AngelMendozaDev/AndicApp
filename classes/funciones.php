@@ -65,6 +65,22 @@ class Procedures extends Master
         return "Nan";
     }
 
+    public function deleteRegister($object){
+        $con = Master::conexion();
+        if ($con == 3)
+            return 'err';
+        
+        $tbl = $object['tbl'];
+        $campo = $object['campo'];
+        
+        $sql = "DELETE FROM $tbl WHERE $campo = ?";
+        $query = $con->prepare($sql);
+        $query->bind_param('s',$object['id']);
+        $result = $query->execute();
+        $query->close();
+        return $result;
+    }
+
     /**************************
         Actions Crud
      */
@@ -114,7 +130,28 @@ class Procedures extends Master
         }
 
         $query = $con->prepare("CALL newAction(?,?,?,?,?)");
-        $query->bind_param('sssss', $object['año'], $object['title'], $object['multimedia'], $media, $object['coment']);
+        $query->bind_param('sssss', $object['año'], strtoupper($object['title']), $object['multimedia'], $media, $object['coment']);
+        $response = $query->execute();
+        $query->close();
+        return $response;
+    }
+
+    public function updateAction($object)
+    {
+        $con = Master::conexion();
+        if ($con == 3)
+            return 'err';
+
+        if ($object['multimedia'] == 'N') {
+            $media = "NoImage";
+        } else {
+            $nameFoto = $_FILES['media']['name'];
+            $data = explode(".", $nameFoto);
+            $media = self::getLastAct() + 1 . "." . $data[1];
+        }
+
+        $query = $con->prepare("CALL updateAction(?,?,?,?,?,?)");
+        $query->bind_param('ssssss', $object['año'], strtoupper($object['title']), $object['multimedia'], $media, $object['coment'], $object['folioAction']);
         $response = $query->execute();
         $query->close();
         return $response;

@@ -71,12 +71,12 @@ $result = $model->getActions();
                                     <button class="btn btn-small btn-primary" data-bs-toggle="modal" data-bs-target="#modalControl" onclick="viewAction('<?php echo $data['id_accion']; ?>','V')">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                     </button>
-
-                                    <button class="btn btn-small btn-warning" data-bs-toggle="modal" data-bs-target="#modalControl" onclick="viewAction('<?php echo $data['id_accion']; ?>', 'E')">
+                            
+                                    <button class="btn btn-small btn-warning" data-bs-toggle="modal" data-bs-target="#modalControl" onclick="viewAction('<?php echo $data['id_accion']; ?>', 'U')">
                                         <i class="fas fa-edit    "></i>
                                     </button>
 
-                                    <button class="btn btn-small btn-danger" onclick="('<?php echo $data['id_accion']; ?>')">
+                                    <button class="btn btn-small btn-danger" onclick="deleteAction('acciones','<?php echo $data['id_accion']; ?>')">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                     </button>
                                 </td>
@@ -101,8 +101,8 @@ $result = $model->getActions();
             </div>
             <div class="modal-body">
                 <form method="POST" class="myForm" onsubmit="return setAction()" enctype="multipart/form-data" id="form-action">
-                    <input type="text" id="typeAction" name="typeAction" readonly>
-                    <input type="text" id="folioAction" name="folioAction" readonly>
+                    <input type="text" id="typeAction" name="typeAction"  readonly>
+                    <input type="text" id="folioAction" name="folioAction"  readonly>
                     <div class="input-group">
                         <span class="input-group-text">Titúlo:</span>
                         <input type="text" class="form-control" id="title" name="title" maxlength="60" style="text-transform: uppercase;" required>

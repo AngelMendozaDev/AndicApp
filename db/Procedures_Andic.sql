@@ -15,3 +15,17 @@ DELIMITER $$
 		INSERT INTO acciones(ano, titulo,multimedia, media, texto) VALUES (años, myTitle, mult, media, texts);
     END;
 $$
+
+DELIMITER $$
+	CREATE PROCEDURE updateAction(
+		in años year,
+        in myTitle varchar(60),
+        in mult char(1),
+        in media varchar(30),
+        in texts mediumtext,
+        in idac int
+        )
+    BEGIN
+		UPDATE acciones SET ano = años, titulo = myTitle ,multimedia = mult, media = media, texto = texts WHERE id_accion = idac;
+    END;
+$$
