@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(!isset($_SESSION['ID'])){
+    header("location:index.php");
+}
 require_once "classes/funciones.php";
 $model = new Procedures();
 $foto = $model->getPicture($_SESSION['ID']);
@@ -150,8 +153,8 @@ $picture =  $foto != -1 ? $foto : "NO_DATA.png";
                                 </a>
                             </li>
                             <li class="option">
-                                <a href="">
-                                    <i class="fab fa-xbox    "></i>
+                                <a href="publicaciones.php">
+                                    <i class="fas fa-newspaper    "></i>
                                     Publicaciones
                                 </a>
                             </li>
@@ -166,10 +169,10 @@ $picture =  $foto != -1 ? $foto : "NO_DATA.png";
                 </div>
             </div>
             <center>
-                <button class="btn btn-danger btn-block w-50 mt-5 mb-5">
+                <a class="btn btn-danger btn-block w-50 mt-5 mb-5" href="controllers/close.php">
                     Cerrar Sesión
                     <i class="fa fa-sign-out" aria-hidden="true"></i>
-                </button>
+                </a>
             </center>
         </div>
         <div class="slide-foot mt-5">

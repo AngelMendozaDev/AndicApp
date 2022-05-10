@@ -4,7 +4,7 @@
     $nameFoto = $_FILES['media']['name'];
     $data = explode(".",$nameFoto);
     $foto = $model->getLastAct()+1 .".". $data[1];
-    move_uploaded_file($_FILES['media']['tmp_name'],'../static/media/pictures/'.$foto);
+    move_uploaded_file($_FILES['media']['tmp_name'],'../static/media/imgs/'.$foto);
     if($_GET['typeAction'] == 'C')
         echo $model->setAction($_GET);
     else if($_GET['typeAction'] == 'U')

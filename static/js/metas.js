@@ -15,7 +15,7 @@ function viewAction(action, letter) {
             $('#textoArea').val(data.texto);
             $('#folioAction').val(data.id_accion)
             if (data.multimedia == 'I')
-                $('#lienzo').append("<img src='static/media/pictures/" + data.media + "' width='100%'>");
+                $('#lienzo').append("<img src='static/media/imgs/" + data.media + "' width='100%'>");
         }
     });
     $('#typeAction').val(letter);
