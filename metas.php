@@ -101,8 +101,8 @@ $result = $model->getActions();
             </div>
             <div class="modal-body">
                 <form method="POST" class="myForm" onsubmit="return setAction()" enctype="multipart/form-data" id="form-action">
-                    <input type="text" id="typeAction" name="typeAction"  readonly>
-                    <input type="text" id="folioAction" name="folioAction"  readonly>
+                    <input type="text" id="typeAction" name="typeAction" hidden readonly>
+                    <input type="text" id="folioAction" name="folioAction" hidden readonly>
                     <div class="input-group">
                         <span class="input-group-text">Titúlo:</span>
                         <input type="text" class="form-control" id="title" name="title" maxlength="60" style="text-transform: uppercase;" required>

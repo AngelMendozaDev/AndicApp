@@ -3,7 +3,7 @@
     $model = new Procedures();
 
     $tbl = $_POST['tbl'];
-    if($tbl == 'acciones')
+    //if($tbl == 'acciones')
         echo $model->deleteRegister($_POST);
     
 

@@ -65,17 +65,18 @@ class Procedures extends Master
         return "Nan";
     }
 
-    public function deleteRegister($object){
+    public function deleteRegister($object)
+    {
         $con = Master::conexion();
         if ($con == 3)
             return 'err';
-        
+
         $tbl = $object['tbl'];
         $campo = $object['campo'];
-        
+
         $sql = "DELETE FROM $tbl WHERE $campo = ?";
         $query = $con->prepare($sql);
-        $query->bind_param('s',$object['id']);
+        $query->bind_param('s', $object['id']);
         $result = $query->execute();
         $query->close();
         return $result;
@@ -147,7 +148,7 @@ class Procedures extends Master
         } else {
             $nameFoto = $_FILES['media']['name'];
             $data = explode(".", $nameFoto);
-            $media = self::getLastAct() + 1 . "." . $data[1];
+            $media = $object['folioAction'] . "." . $data[1];
         }
 
         $query = $con->prepare("CALL updateAction(?,?,?,?,?,?)");
@@ -167,5 +168,96 @@ class Procedures extends Master
         $data = $query->get_result()->fetch_assoc();
         $query->close();
         return $data['id_accion'];
+    }
+
+
+    /***********************
+     * *** CRUD EVENTOS
+     ********************************************/
+    public function getEvents()
+    {
+        $con = Master::conexion();
+        if ($con == 3)
+            return 'err';
+        $query = $con->prepare("select * from getAllEvents");
+        $query->execute();
+        $result = $query->get_result();
+        $query->close();
+
+        return $result;
+    }
+
+    public function getEvent($event)
+    {
+        $con = Master::conexion();
+        if ($con == 3)
+            return 'err';
+        $query = $con->prepare("SELECT * FROM evento WHERE id_evento = ?");
+        $query->bind_param('s', $event);
+        $query->execute();
+        $result = $query->get_result();
+        $query->close();
+
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }
+
+        return "Nan";
+    }
+
+    public function setEvent($object)
+    {
+        $con = Master::conexion();
+        if ($con == 3)
+            return 'err';
+
+        $nameFoto = $_FILES['picture']['name'];
+        $data = explode(".", $nameFoto);
+        $media = self::getLastEvent() + 1 . "." . $data[1];
+
+        $auxDate = explode("T", $object['dateStart']);
+        $dateStart = $auxDate[0] . " " . $auxDate[1];
+
+        $registro = !isset($object['register']) ? 0 : 1;
+
+        $query = $con->prepare("CALL newEvent(?,?,?,?,?,?)");
+        $query->bind_param('ssssss', strtoupper($object['titleEvent']), $dateStart, $object['horario'], $media, $registro, $object['textEvent']);
+        $response = $query->execute();
+        $query->close();
+        return $response;
+    }
+
+    public function updateEvent($object)
+    {
+        $con = Master::conexion();
+        if ($con == 3)
+            return 'err';
+
+        $nameFoto = $_FILES['picture']['name'];
+        $data = explode(".", $nameFoto);
+        $media = $object['idEvent'] . "." . $data[1];
+
+        $auxDate = explode("T", $object['dateStart']);
+        $dateStart = $auxDate[0] . " " . $auxDate[1];
+
+        $registro = !isset($object['register']) ? 0 : 1;
+
+        $query = $con->prepare("CALL updateEvent(?,?,?,?,?,?,?)");
+        $query->bind_param('sssssss', strtoupper($object['titleEvent']), $dateStart, $object['horario'], $media, $registro, $object['textEvent'], $object['idEvent']);
+        $response = $query->execute();
+        $query->close();
+        return $response;
+    }
+
+    public function getLastEvent()
+    {
+        $con = Master::conexion();
+        if ($con == 3)
+            return 'err';
+        $query = $con->prepare("SELECT *  FROM getLastEvent");
+        $query->execute();
+        $data = $query->get_result()->fetch_assoc();
+        $query->close();
+        return $data['id_evento'];
     }
 }

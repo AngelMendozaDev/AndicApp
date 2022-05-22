@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['ID'])){
+if (!isset($_SESSION['ID'])) {
     header("location:index.php");
 }
 require_once "classes/funciones.php";
@@ -114,7 +114,7 @@ $picture =  $foto != -1 ? $foto : "NO_DATA.png";
                     <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionOptions">
                         <ul class="sub-menu">
                             <li class="option">
-                                <a href="">
+                                <a href="eventos.php">
                                     <i class="fas fa-calendar-plus"></i>
                                     &nbsp;
                                     Gestionar Eventos
@@ -122,14 +122,16 @@ $picture =  $foto != -1 ? $foto : "NO_DATA.png";
                             </li>
                             <li class="option">
                                 <a href="">
-                                    <i class="fab fa-xbox    "></i>
-                                    option
+                                    <i class="fas fa-address-card"></i>
+                                    &nbsp;
+                                    Inscripciones
                                 </a>
                             </li>
                             <li class="option">
                                 <a href="">
-                                    <i class="fab fa-xbox    "></i>
-                                    option
+                                    <i class="fas fa-address-book"></i>
+                                    &nbsp;
+                                    Control de asistencias
                                 </a>
                             </li>
                         </ul>
@@ -150,12 +152,6 @@ $picture =  $foto != -1 ? $foto : "NO_DATA.png";
                                     <i class="fas fa-calendar-plus"></i>
                                     &nbsp;
                                     Linea temporal
-                                </a>
-                            </li>
-                            <li class="option">
-                                <a href="publicaciones.php">
-                                    <i class="fas fa-newspaper    "></i>
-                                    Publicaciones
                                 </a>
                             </li>
                             <li class="option">
