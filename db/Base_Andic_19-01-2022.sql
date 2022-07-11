@@ -44,7 +44,7 @@ create table evento(
     titulo varchar(40) not null,
     fecha_inicio datetime default now(),
     horario varchar(30) not null,
-    foto varchar(10) not null,
+    foto varchar(20) not null,
     registro int not null,
     descript mediumtext not null,
     primary key(id_evento)

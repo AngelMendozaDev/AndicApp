@@ -31,7 +31,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" onsubmit="return setInfo()" class="needs-validation">
+                        <form method="POST" onsubmit="return setPerson()" class="needs-validation" id="form-person">
                             <h5 id="title-form"></h5>
                             <div class="cont-form">
                                 <!-- Parte Info Personal -->
@@ -87,25 +87,12 @@
                                             <input type="text" class="form-control" name="phone" placeholder="Número a 10 digitos" required>
                                         </div>
                                     </div>
-                                    <div class="input-group mb-3">
-                                        <label for="myTipo" class="input-group-text">Tipo de Angel:</label>
-                                        <select name="tipo" id="myTipo" class="form-select">
-                                            <option value="" selected="true" disabled>--Selecciona una opción</option>
-                                            <option value="C">Comunidad</option>
-                                            <option value="P">Personal</option>
-                                            <option value="R">Representante</option>
-                                            <option value="S">Servicio Social/Residencias</option>
-                                        </select>
-                                    </div>
-                                    <div class="input-group mb-3">
-                                        <input type="file" class="form-control" accept=".jpg, .jpeg, .png" id="Archivo">
-                                    </div>
                                 </div>
                                 <!-- Parte de Domicilio -->
                                 <div class="part" id="part-1">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">Calle:</span>
-                                        <input type="text" class="form-control" name="calle" required>
+                                        <input type="text" class="form-control" name="calle" style="text-transform: uppercase;" maxlength="60" required>
                                     </div>
                                     <div class="form-flex">
                                         <div class="input-group mb-3">
@@ -114,7 +101,7 @@
                                         </div>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">Colonia:</span>
-                                            <select name="colonia" id="colonia" class="form-select">
+                                            <select name="colonia" id="colonia" class="form-select" required>
                                                 <option value="" selected="true" disabled> Selecciona una opcion...</option>
                                             </select>
                                         </div>
@@ -130,26 +117,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Parte de Foto -->
-                                <div class="part" id="part-2">
-                                    <div class="servicio">
-                                        <div class="input-group">
-                                            <span class="input-group-text">Escuela</span>
-                                            <input type="text" class="form-control" name="campo-3" required>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                             <div class="control-form">
-                                <div class="btn-controllers mt-3 mb-3">
-                                    <button type="button" class="btn btn-primary btn-small my-control" id="arrow-left">
-                                        <i class="fas fa-arrow-left" aria-hidden="true"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-primary btn-small my-control" id="arrow-right">
-                                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
-                                    </button>
-                                </div>
                                 <button type="submit" class="btn btn-success">
                                     <i class="fa fa-paper-plane" aria-hidden="true"></i>
                                     Enviar

@@ -9,8 +9,10 @@
             $conexion = mysqli_connect($host,$user,$pass,$db);
             mysqli_set_charset($conexion,'utf8');
 
-            if(!$conexion)
+            if(!$conexion){
+                echo "Info";
                 return 3;
+            }
             return $conexion;
         }
     }

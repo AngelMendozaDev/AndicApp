@@ -65,3 +65,28 @@ DELIMITER $$
 		UPDATE evento SET titulo=title, fecha_inicio=fechai, horario=horarios, foto=picture, registro=register, descript=descrip WHERE id_evento = myEvent;
     END;
 $$
+
+DELIMITER $$
+	CREATE PROCEDURE newPerson(
+		in name_p varchar(30),
+        in app_p varchar(25),
+        in apm_p varchar(25),
+        in sex char(1),
+        in date_p date,
+        in mail varchar(60),
+        in phone varchar(10),
+        
+        in street varchar(60),
+        in codep int,
+        
+        in pass_p varchar(20),
+        in perfil_p int
+    )
+    begin
+		declare ID int;
+		INSERT INTO persona (nombre,app,apm,sexo,fecha_nac,correo,tel) VALUES (name_p, app_p, apm_p, sex, date_p, mail, phone);
+        set ID = last_insert_id();
+        INSERT INTO domicilio(id_dom, calle, cp) VALUES (ID, street, cp);
+        INSERT INTO angeles(id_angel,pass,picture,perfil) VALUES (ID,pass_p,'noImg.png',perfil_p);
+    end
+$$

@@ -5,7 +5,7 @@
 }
 
 .cont-form {
-    display: flex;
+    display: block;
     overflow: hidden;
 }
 

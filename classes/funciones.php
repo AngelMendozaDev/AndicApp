@@ -260,4 +260,43 @@ class Procedures extends Master
         $query->close();
         return $data['id_evento'];
     }
+
+    /**********************
+     *  Comunity
+     ********************************/
+    public function existPerson($number, $mail){
+        $con = Master::conexion();
+        if($con == 3)
+            return 'err';
+        
+        $query = $con->prepare('SELECT id_p FROM persona WHERE correo = ? OR correo = ?');
+        $query->bind_param('ss',$mail, $number);
+        $query->execute();
+        $response = $query->get_result();
+
+        $query->close();
+
+        if($response->num_rows > 0){
+            return true;
+        }
+        return false;
+    }
+
+    public function setPerson($object){
+        $con = Master::conexion();
+        if($con == 3)
+            return 'err';
+        
+        if(self::existPerson($object['phone'], $object['mail']) == true){
+            return -1;   
+        }
+        
+        $query = $con->prepare("call newPerson(?,?,?,?,?,?,?,?,?,?,?)");
+        $query->bind_param('sssssssssss',$object['name'], $object['app'], $object['apm'], $object['sex'], $object['date'], $object['mail'], $object['phone'], $object['street'], $object['cp'], $object['pass'], $object['perfil']);
+        $response = $query->execute();
+       
+        $query->close();
+        
+        return $response;
+    }
 }

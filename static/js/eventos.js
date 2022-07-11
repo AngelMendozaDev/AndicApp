@@ -24,10 +24,10 @@ function setEvent() {
             contentType: false,
             data: archivos,
             processData: false,
-            beforeSend: function() {
+            beforeSend: function () {
                 console.log("cargando...");
             },
-            success: function(response) {
+            success: function (response) {
                 console.log(response);
                 if (response.trim() == '1') {
                     swal("Evento creado!", "ANDIC A.C. [2022]", "success")
@@ -45,12 +45,18 @@ function setEvent() {
 function getEvent(evento, type) {
     bandera = false;
     $('#typeAction').val(type);
+    if (type == 'V') {
+        $('#btn-up').hide();
+    }
+    else{
+        $('#btn-up').show();
+    }
 
     $.ajax({
         url: "controllers/getInfo.php",
         type: 'POST',
         data: { tipo: "getEvent", evento },
-        success: function(response) {
+        success: function (response) {
             console.log(response);
             data = JSON.parse(response);
             aux = data.fecha_inicio.split(" ");
@@ -88,19 +94,19 @@ function changeF(dato) {
 
 function deleteEvent(tbl, id) {
     swal({
-            title: "Esta seguro?",
-            text: "Una vez eliminado, no se podra recuperar",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
+        title: "Esta seguro?",
+        text: "Una vez eliminado, no se podra recuperar",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
         .then((willDelete) => {
             if (willDelete) {
                 $.ajax({
                     url: "controllers/deleteInfo.php",
                     type: 'POST',
                     data: { tbl, campo: "id_evento", id },
-                    success: function(response) {
+                    success: function (response) {
                         console.log(response);
                         if (response.trim() == '1') {
                             swal("Evento eliminado!", "ANDIC A.C. [2022]", "success")
@@ -116,6 +122,17 @@ function deleteEvent(tbl, id) {
         });
 }
 
-$(function() {
+$(function () {
+
+    $('#picture').change(function () {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#aux-image').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+
     $("#tabla").dataTable();
 });

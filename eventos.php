@@ -110,6 +110,10 @@ $result = $model->getEvents();
                         <input type="file" class="form-control" name="picture" id="picture" required>
                     </div>
 
+                    <div class="myLienzo">
+                        <img src="" id="aux-image" width="100%">
+                    </div>
+
                     <div class="form-floating">
                         <textarea class="form-control" name="textEvent" id="textEvent" placeholder="Leave a comment here" id="etxtEvent" style="height: 100px" required></textarea>
                         <label for="etxtEvent">Descripción del evento.</label>
@@ -121,7 +125,7 @@ $result = $model->getEvents();
                     </div>
 
                     <center>
-                        <button type="submit" class="btn btn-success mt-3 mb-2">
+                        <button type="submit" class="btn btn-success mt-3 mb-2" id="btn-up">
                             <i class="fa fa-save" aria-hidden="true"></i>
                             &nbsp;
                             Guardar Evento
@@ -131,8 +135,7 @@ $result = $model->getEvents();
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>
