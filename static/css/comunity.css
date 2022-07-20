@@ -61,6 +61,32 @@
     margin: auto;
 }
 
+/*************
+* Image Control
+***************************/
+.image-box{
+    width: 98%;
+    margin: auto;
+    padding: 10px;
+    border-radius: 10px;
+    border: solid 2px rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+.image-box img{
+    width: 18rem;
+    height: 18rem;
+}
+
+/******Table Picture ************/
+.table-picture{
+    width: 100px;
+}
+
+/*******************
+RESPONSIVE DESING
+*****************************/
+
 @media (max-width:700px) {
     .form-flex {
         display: block;

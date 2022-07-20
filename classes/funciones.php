@@ -328,4 +328,33 @@ class Procedures extends Master
 
         return $result;
     }
+
+    public function setImage($image,$person){
+        $con = Master::conexion();
+        if($con == 3)
+            return 'err';
+
+        $query = $con->prepare("CALL updateImage(?,?)");
+        $query->bind_param('ss',$image,$person);
+        $response = $query->execute();
+
+        $query->close();
+
+        return $response;
+    }
+
+    public function getImage($person){
+        $con = Master::conexion();
+        if($con == 3)
+            return 'err';
+        
+        $query = $con->prepare('SELECT picture FROM angeles WHERE id_angel = ?');
+        $query->bind_param('s',$person);
+        $query->execute();
+        $response = $query->get_result();
+
+        $query->close();
+
+        return $response->fetch_assoc();
+    }
 }

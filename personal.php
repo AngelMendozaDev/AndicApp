@@ -1,5 +1,5 @@
-<?php 
-require_once "header.php"; 
+<?php
+require_once "header.php";
 require_once "classes/funciones.php";
 $model = new Procedures();
 $result = $model->getPersons();
@@ -20,7 +20,7 @@ $result = $model->getPersons();
             <strong>LUMEGA-MX [Marzo - 2022]</strong>
         </div>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalControl">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalControl" onclick="prepareForm()">
             Nuevo Registro <i class="fa fa-plus" aria-hidden="true"></i>
         </button>
     </div>
@@ -35,31 +35,39 @@ $result = $model->getPersons();
                         <th>Apm</th>
                         <th>Sex</th>
                         <th>Mail</th>
+                        <th>Foto</th>
                         <th>Controles</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while($data = $result->fetch_assoc()){ ?>
-                    <tr class="text-center">
-                        <td><?php echo $data['nombre'] ?></td>
-                        <td><?php echo $data['app'] ?></td>
-                        <td><?php echo $data['apm'] ?></td>
-                        <td><?php echo $data['sexo'] ?></td>
-                        <td><?php echo $data['correo'] ?></td>
-                        <td>
-                            <button class="btn btn-primary btn-small" data-bs-toggle="modal" data-bs-target="#ModalControl" onclick="getInfo('v','<?php echo $data['id_p'] ?>')">
-                                <i class="fa fa-eye" aria-hidden="true"></i>
-                            </button>
+                    <?php while ($data = $result->fetch_assoc()) { ?>
+                        <tr class="text-center">
+                            <td><?php echo $data['nombre'] ?></td>
+                            <td><?php echo $data['app'] ?></td>
+                            <td><?php echo $data['apm'] ?></td>
+                            <td><?php echo $data['sexo'] ?></td>
+                            <td><?php echo $data['correo'] ?></td>
+                            <td>
+                                <img src="static/media/pictures/<?php echo $data['picture'] ?>" class="table-picture" alt="">
+                            </td>
+                            <td>
+                                <button class="btn btn-info btn-small" data-bs-toggle="modal" data-bs-target="#pictureModal" onclick="getImage(<?php echo $data['id_p'] ?>)">
+                                    <i class="fas fa-image"></i>
+                                </button>
 
-                            <button class="btn btn-warning btn-small">
-                                <i class="fa fa-edit" aria-hidden="true"></i>
-                            </button>
+                                <button class="btn btn-primary btn-small" data-bs-toggle="modal" data-bs-target="#ModalControl" onclick="getInfo('v','<?php echo $data['id_p'] ?>')">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </button>
 
-                            <button class="btn btn-danger btn-small">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                            </button>
-                        </td>
-                    </tr>
+                                <button class="btn btn-warning btn-small">
+                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                </button>
+
+                                <button class="btn btn-danger btn-small">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </tr>
                     <?php } ?>
                 </tbody>
             </table>
@@ -69,7 +77,7 @@ $result = $model->getPersons();
 
 
 <!-- Modal New/ -->
-<div class="modal fade" id="ModalControl" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="ModalControl" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ModalControlLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -166,11 +174,47 @@ $result = $model->getPersons();
                     </div>
 
                     <div class="control-form">
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" class="btn btn-success" id="btn-send">
                             <i class="fa fa-paper-plane" aria-hidden="true"></i>
                             Enviar
                         </button>
                     </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="closeModal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Image -->
+<div class="modal fade" id="pictureModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="pictureModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pictureModalLabel">Gestor de Imagen</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="image-box">
+                    <img src="" alt="" id="imagePerson">
+                </div>
+                <hr>
+                <form method="POST" id="changeImageForm" onsubmit="return setImage()" enctype="multipart/form-data">
+                <input type="text" name="persona" id="folP" hidden>
+                    <div class="input-group">
+                        <input type="file" name="picture" id="foto" class="form-control" required>
+                    </div>
+                    <br>
+                    <center>
+                        <button type="submit" id="btn-foto" class="btn btn-success">
+                            <i class="fas fa-sync"></i>
+                            &nbsp;
+                            Actualizar imagen
+                        </button>
+                    </center>
                 </form>
             </div>
             <div class="modal-footer">
