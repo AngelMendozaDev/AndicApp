@@ -299,4 +299,33 @@ class Procedures extends Master
         
         return $response;
     }
+
+    public function getPersons(){
+        $con = Master::conexion();
+        if($con == 3)
+            return 'err';
+        
+        $query = $con->prepare('SELECT * FROM getAllPerson');
+        $query->execute();
+        $data = $query->get_result();
+
+        $query->close();
+
+        return $data;
+    }
+
+    public function getPerson($folio){
+        $con = Master::conexion();
+        if($con == 3)
+            return 'err';
+        
+        $query = $con->prepare("SELECT p.*, a.pass, a.picture, a.perfil, d.calle, d.cp as col, c.cp, c.mun, e.estado_n FROM persona AS p INNER JOIN angeles AS a ON a.id_angel = p.id_p INNER JOIN domicilio AS d ON d.id_dom = p.id_p INNER JOIN cp_col AS c ON d.cp = c.n_registro INNER JOIN estado as e ON e.id_estado = c.estado WHERE p.id_p = ?");
+        $query->bind_param('s',$folio);
+        $query->execute();
+        $result = $query->get_result()->fetch_assoc();
+
+        $query->close();
+
+        return $result;
+    }
 }

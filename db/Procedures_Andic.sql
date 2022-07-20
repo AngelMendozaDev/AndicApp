@@ -5,6 +5,7 @@ CREATE VIEW getLastAct AS SELECT * FROM acciones ORDER BY id_accion DESC LIMIT 1
 CREATE VIEW getEvents AS select * from evento where fecha_inicio >= now();
 CREATE VIEW getAllEvents AS select * from evento order by fecha_inicio DESC;
 CREATE VIEW getLastEvent AS SELECT * FROM evento ORDER BY id_evento DESC LIMIT 1;
+CREATE VIEW getAllPerson AS SELECT * FROM persona ORDER BY id_p DESC;
 
 DELIMITER $$
 	CREATE PROCEDURE newAction(
@@ -83,10 +84,15 @@ DELIMITER $$
         in perfil_p int
     )
     begin
-		declare ID int;
+		declare lastID int default 0;
 		INSERT INTO persona (nombre,app,apm,sexo,fecha_nac,correo,tel) VALUES (name_p, app_p, apm_p, sex, date_p, mail, phone);
-        set ID = last_insert_id();
-        INSERT INTO domicilio(id_dom, calle, cp) VALUES (ID, street, cp);
-        INSERT INTO angeles(id_angel,pass,picture,perfil) VALUES (ID,pass_p,'noImg.png',perfil_p);
+		SET lastID = LAST_INSERT_ID();
+        IF lastID > 0 then
+			INSERT INTO domicilio(id_dom, calle, cp) VALUES (lastID, street, codep);
+			INSERT INTO angeles(id_angel,pass,picture,perfil) VALUES (lastID,pass_p,'noImg.png',perfil_p);
+			commit;
+		else
+        rollback;
+        end if;
     end
 $$

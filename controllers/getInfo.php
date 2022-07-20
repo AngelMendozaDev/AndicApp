@@ -14,6 +14,9 @@ switch ($Type) {
     case 'getEvent':
         echo json_encode($model->getEvent($_POST['evento']));
         break;
+    case 'getPerson':
+        echo json_encode($model->getPerson($_POST['persona']));
+        break;
     default:
         echo "error";
         break;
