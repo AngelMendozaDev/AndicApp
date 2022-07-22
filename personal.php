@@ -59,7 +59,7 @@ $result = $model->getPersons();
                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                 </button>
 
-                                <button class="btn btn-warning btn-small">
+                                <button class="btn btn-warning btn-small" data-bs-toggle="modal" data-bs-target="#ModalControl" onclick="getInfo('e','<?php echo $data['id_p']  ?>')">
                                     <i class="fa fa-edit" aria-hidden="true"></i>
                                 </button>
 
@@ -76,7 +76,7 @@ $result = $model->getPersons();
 </div>
 
 
-<!-- Modal New/ -->
+<!-- Modal New/ Update -->
 <div class="modal fade" id="ModalControl" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ModalControlLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -86,7 +86,8 @@ $result = $model->getPersons();
             </div>
             <div class="modal-body">
                 <form method="POST" onsubmit="return setPerson()" class="needs-validation" id="form-person">
-                    <h5 id="title-form"></h5>
+                    <h5 id="title-form">some</h5>
+                    <input type="text" id="person" name="person">
                     <div class="cont-form">
                         <!-- Parte Info Personal -->
                         <div class="part" id="part-0">

@@ -82,6 +82,14 @@ function setPerson() {
 function getInfo(type, persona) {
     prepareForm();
     bandera = type == 'v' ? true : false;
+    
+    $('#person').val(type+"-"+persona);
+
+    if (bandera == true)
+        $('#btn-send').hide();
+    else
+        $('#btn-send').show();
+
     $('.form-control').attr('disabled', bandera)
     $.ajax({
         url: 'controllers/getInfo.php',
@@ -102,7 +110,6 @@ function getInfo(type, persona) {
             $('#phone').val(dato.tel);
             $('#calle').val(dato.calle);
             $('#cp').val(dato.cp);
-            $('#btn-send').hide();
         }
     });
 }
@@ -113,7 +120,7 @@ function prepareForm() {
     $('#btn-send').show()
 }
 
-function setImage(){
+function setImage() {
     var form = $('#changeImageForm');
     var datos = form.serialize();
     var archivos = new FormData();
@@ -122,37 +129,37 @@ function setImage(){
     }
     $.ajax({
         url: 'controllers/changeImage.php?' + datos,
-            type: 'POST',
-            contentType: false,
-            data: archivos,
-            processData: false,
-            beforeSend: function () {
-                console.log("cargando...");
-            },
-            success: function (response) {
-                console.log(response);
-                if (response.trim() == '1') {
-                    swal("Foto actualizada!", "ANDIC A.C. [2022]", "success")
-                        .then((value) => {
-                            location.reload();
-                        });
-                }
+        type: 'POST',
+        contentType: false,
+        data: archivos,
+        processData: false,
+        beforeSend: function () {
+            console.log("cargando...");
+        },
+        success: function (response) {
+            console.log(response);
+            if (response.trim() == '1') {
+                swal("Foto actualizada!", "ANDIC A.C. [2022]", "success")
+                    .then((value) => {
+                        location.reload();
+                    });
             }
+        }
     });
     return false;
 }
 
-function getImage(person){
+function getImage(person) {
     $('#folP').val(person)
     $('#btn-foto').hide();
     $.ajax({
-        url:'controllers/getInfo.php',
-        type:'POST',
-        data:{tipo:'getImage', person},
-        success: function(response){
+        url: 'controllers/getInfo.php',
+        type: 'POST',
+        data: { tipo: 'getImage', person },
+        success: function (response) {
             console.log(response);
             data = JSON.parse(response);
-            $('#imagePerson').attr('src',"static/media/pictures/"+data.picture);
+            $('#imagePerson').attr('src', "static/media/pictures/" + data.picture);
         }
     });
 }
@@ -165,8 +172,8 @@ $(function () {
         }
     });
 
-    $('#foto').change(function(){
-        if($('#foto').val() != ""){
+    $('#foto').change(function () {
+        if ($('#foto').val() != "") {
             $('#btn-foto').show();
         }
         else

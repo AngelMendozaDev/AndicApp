@@ -19,6 +19,6 @@
         "pass" => $pass,
         "perfil" => '1'
     );
-
+    
     echo $model->setPerson($data);
 ?>

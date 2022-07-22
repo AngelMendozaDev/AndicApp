@@ -98,6 +98,30 @@ DELIMITER $$
 $$
 
 DELIMITER $$
+	CREATE PROCEDURE updatePerson(
+		in name_p varchar(30),
+        in app_p varchar(25),
+        in apm_p varchar(25),
+        in sex char(1),
+        in date_p date,
+        in mail varchar(60),
+        in phone varchar(10),
+        
+        in street varchar(60),
+        in codep int,
+        
+        in pass_p varchar(20),
+        in perfil_p int,
+        
+        in person int
+    )
+    begin
+        UPDATE persona SET nombre = name_p, app = app_p, apm = apm_p, sexo = sex, fecha_nac = date_p, correo = mail, tel = phone WHERE id_p = person;
+        UPDATE domicilio SET calle = street, cp = codep WHERE id_dom = person;
+    end
+$$
+
+DELIMITER $$
 CREATE procedure updateImage(
 	in foto varchar(20),
 	in persona int )
@@ -105,3 +129,4 @@ CREATE procedure updateImage(
 		UPDATE angeles SET picture = foto WHERE id_angel = persona;
     end
 $$
+
