@@ -5,7 +5,7 @@ CREATE VIEW getLastAct AS SELECT * FROM acciones ORDER BY id_accion DESC LIMIT 1
 CREATE VIEW getEvents AS select * from evento where fecha_inicio >= now();
 CREATE VIEW getAllEvents AS select * from evento order by fecha_inicio DESC;
 CREATE VIEW getLastEvent AS SELECT * FROM evento ORDER BY id_evento DESC LIMIT 1;
-CREATE VIEW getAllPerson AS SELECT p.*, a.picture FROM persona AS p INNER JOIN angeles AS a ON a.id_angel = p.id_p ORDER BY p.id_p DESC;
+CREATE VIEW getAllPerson AS SELECT p.*, a.picture FROM persona AS p INNER JOIN angeles AS a ON a.id_angel = p.id_p WHERE p.estado = 1 ORDER BY p.id_p DESC;
 
 DELIMITER $$
 	CREATE PROCEDURE newAction(
@@ -85,7 +85,7 @@ DELIMITER $$
     )
     begin
 		declare lastID int default 0;
-		INSERT INTO persona (nombre,app,apm,sexo,fecha_nac,correo,tel) VALUES (name_p, app_p, apm_p, sex, date_p, mail, phone);
+		INSERT INTO persona (nombre,app,apm,sexo,fecha_nac,correo,tel,estado) VALUES (name_p, app_p, apm_p, sex, date_p, mail, phone,1);
 		SET lastID = LAST_INSERT_ID();
         IF lastID > 0 then
 			INSERT INTO domicilio(id_dom, calle, cp) VALUES (lastID, street, codep);
@@ -127,3 +127,12 @@ CREATE procedure updateImage(
     end
 $$
 
+DELIMITER $$
+
+CREATE PROCEDURE deletePerson(
+	in folio int
+)
+begin
+	update persona SET estado = 0 WHERE id_p = folio;
+end;
+$$

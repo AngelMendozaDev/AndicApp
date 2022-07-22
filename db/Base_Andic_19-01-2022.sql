@@ -20,6 +20,7 @@ create table persona(
     fecha_nac date not null,
     correo varchar(60) not null,
     tel varchar(10) not null,
+    estado int(1) not null,
     primary key (id_p)
 );
 

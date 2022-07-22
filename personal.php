@@ -63,7 +63,7 @@ $result = $model->getPersons();
                                     <i class="fa fa-edit" aria-hidden="true"></i>
                                 </button>
 
-                                <button class="btn btn-danger btn-small">
+                                <button class="btn btn-danger btn-small" onclick="deletePerson('<?php echo $data['id_p'] ?>')">
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                 </button>
                             </td>
@@ -87,7 +87,7 @@ $result = $model->getPersons();
             <div class="modal-body">
                 <form method="POST" onsubmit="return setPerson()" class="needs-validation" id="form-person">
                     <h5 id="title-form">some</h5>
-                    <input type="text" id="person" name="person">
+                    <input type="text" id="person" name="person" hidden>
                     <div class="cont-form">
                         <!-- Parte Info Personal -->
                         <div class="part" id="part-0">

@@ -371,4 +371,18 @@ class Procedures extends Master
 
         return $response->fetch_assoc();
     }
+
+    public function deletePerson($person){
+        $con = Master::conexion();
+        if($con == 3)
+            return 'err';
+
+        $query = $con->prepare('CALL deletePerson(?)');
+        $query->bind_param('s',$person);
+        $response = $query->execute();
+
+        $query->close();
+
+        return $response;
+    }
 }

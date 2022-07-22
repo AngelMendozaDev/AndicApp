@@ -119,6 +119,7 @@ function prepareForm() {
     $('.form-control').attr('disabled', false);
     $('#form-person')[0].reset();
     $('#btn-send').show()
+    $('#person').val("c-x");
 }
 
 function setImage() {
@@ -175,10 +176,21 @@ function deletePerson(person) {
     })
         .then((willDelete) => {
             if (willDelete) {
+                person = "d-"+person;
               $.ajax({
-                url:"controllers/deleteInfo.php",
+                url:"controllers/setInfoU.php",
                 type:"POST",
-                data:{tbl:"",}
+                data:{person},
+                success:function(response){
+                    console.log(response);
+                    if(response == 1){
+                        swal("Información Eliminada con exito!", "ANDIC [2022]", "success")
+                        .then((value) => {
+                            location.reload();
+                        });
+                    }
+                    
+                }
               });
             } 
         });

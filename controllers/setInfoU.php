@@ -26,7 +26,7 @@ use function PHPSTORM_META\type;
         );
         echo $model->updatePerson($data);
     }
-    else{
+    else if($type[0] == 'c'){
         $data = array(
             "name" => strtoupper($_POST['nombre']),
             "app" => strtoupper($_POST['app']),
@@ -41,5 +41,8 @@ use function PHPSTORM_META\type;
             "perfil" => '1'
         );
         echo $model->setPerson($data);
+    }
+    else if($type[0] == 'd'){
+        echo $model->deletePerson($type[1]);
     }
 ?>
