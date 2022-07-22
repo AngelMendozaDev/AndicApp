@@ -55,10 +55,11 @@ function setPerson() {
             type: "POST",
             data: $('#form-person').serialize(),
             success: function (response) {
+                console.log(response);
                 if (response.trim() == 1) {
                     $('#form-person')[0].reset();
                     $('#closeModal').click();
-                    swal("Persona registrada con exito!", "ANDIC [2022]", "success")
+                    swal("Información Guardada con exito!", "ANDIC [2022]", "success")
                         .then((value) => {
                             location.reload();
                         });
@@ -82,8 +83,8 @@ function setPerson() {
 function getInfo(type, persona) {
     prepareForm();
     bandera = type == 'v' ? true : false;
-    
-    $('#person').val(type+"-"+persona);
+
+    $('#person').val(type + "-" + persona);
 
     if (bandera == true)
         $('#btn-send').hide();
@@ -162,6 +163,26 @@ function getImage(person) {
             $('#imagePerson').attr('src', "static/media/pictures/" + data.picture);
         }
     });
+}
+
+function deletePerson(person) {
+    swal({
+        title: "Estas segur@?",
+        text: "Una vez eliminado el registro no se podra recuperar!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+        .then((willDelete) => {
+            if (willDelete) {
+              $.ajax({
+                url:"controllers/deleteInfo.php",
+                type:"POST",
+                data:{tbl:"",}
+              });
+            } 
+        });
+
 }
 
 $(function () {

@@ -110,9 +110,6 @@ DELIMITER $$
         in street varchar(60),
         in codep int,
         
-        in pass_p varchar(20),
-        in perfil_p int,
-        
         in person int
     )
     begin

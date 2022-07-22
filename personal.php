@@ -39,7 +39,7 @@ $result = $model->getPersons();
                         <th>Controles</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="bodyMyTable">
                     <?php while ($data = $result->fetch_assoc()) { ?>
                         <tr class="text-center">
                             <td><?php echo $data['nombre'] ?></td>

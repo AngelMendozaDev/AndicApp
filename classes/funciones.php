@@ -300,6 +300,20 @@ class Procedures extends Master
         return $response;
     }
 
+    public function updatePerson($object){
+        $con = Master::conexion();
+        if($con == 3)
+            return 'err';
+        
+        $query = $con->prepare("call updatePerson(?,?,?,?,?,?,?,?,?,?)");
+        $query->bind_param('ssssssssss',$object['name'], $object['app'], $object['apm'], $object['sex'], $object['date'], $object['mail'], $object['phone'], $object['street'], $object['cp'], $object['person']);
+        $response = $query->execute();
+       
+        $query->close();
+        
+        return $response;
+    }
+
     public function getPersons(){
         $con = Master::conexion();
         if($con == 3)

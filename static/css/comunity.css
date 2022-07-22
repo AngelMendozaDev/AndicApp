@@ -83,6 +83,12 @@
     width: 100px;
 }
 
+.bodyMyTable tr td{
+    text-align: center;
+    vertical-align: middle;
+}
+
+
 /*******************
 RESPONSIVE DESING
 *****************************/
