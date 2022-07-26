@@ -1,0 +1,84 @@
+@font-face {
+    font-family: 'Title';
+    src: url('../fonts/GaretBook.ttf');
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.Tablero{
+    width: 98%;
+    margin: auto;
+    border: solid 2px rgba(0,0,0,0.5);
+    border-radius: 10px;
+    box-shadow: 0px 5px 5px rgba(0,0,0,0.5);
+    overflow-y: scroll;
+}
+
+.Tablero{
+    display: flex;
+    height: 80vh;
+    margin-bottom: 30px;
+}
+
+.columna{
+    width:400px;
+    margin: 5px;
+    height:calc(100%);
+    border-right: dotted 2px rgba(255,15,65,0.5);
+    border-left: dotted 2px rgba(255,15,65,0.5);
+}
+
+.columna .header-colum{
+    text-align: center;
+    font-size: 20px;
+    font-family: Title;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+/**************************************
+** Tarjeta de alumno
+*******************************************************/
+
+.tarjeta-alumno{
+    width: 98%;
+    margin: auto;
+    border: solid 2px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    height: 85px;
+    padding-bottom: 5px;
+    transition: all 2s;
+    margin-bottom: 10px;
+    overflow-y: hidden;
+}
+
+.tarjeta-alumno p{
+    padding: 0px;
+    margin: 0px;
+}
+
+.tarjeta-alumno .name-al{
+    font-size: 23px;
+    display: block;
+    margin: auto;
+    text-align: center;
+    font-weight: 500;
+}
+
+.tarjeta-alumno .escuela{
+    font-weight: 500;
+}
+
+.tarjeta-alumno .carrera{
+    font-weight: 500;
+    font-style: italic;
+}
+
+.tarjeta-alumno:hover{
+    height: auto;
+    transition: all 0.8s;
+}

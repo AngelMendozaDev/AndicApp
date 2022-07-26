@@ -87,6 +87,13 @@ $picture =  $foto != -1 ? $foto : "NO_DATA.png";
                                 </a>
                             </li>
                             <li class="option">
+                                <a href="practicas.php">
+                                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                    &nbsp;
+                                    Servicio / Practicas
+                                </a>
+                            </li>
+                            <li class="option">
                                 <a href="">
                                     <i class="fa fa-id-card" aria-hidden="true"></i>
                                     &nbsp;
