@@ -1,8 +1,5 @@
 <?php
 require_once "header.php";
-require_once "classes/funciones.php";
-$model = new Procedures();
-$result = $model->getPersons();
 ?>
 <link rel="stylesheet" href="static/css/comunity.css">
 <link rel="stylesheet" href="static/css/practicas.css">
@@ -32,57 +29,40 @@ $result = $model->getPersons();
         <div class="header-colum">
             <h3>Solicitudes</h3>
         </div>
-        <div class="body-colum">
-            <div class="tarjeta-alumno" id="">
-                <span class="name-al">LUIS ANGEL MENDOZA GARCIA</span>
-                <p>
-                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                    <span class="escuela">TecNM Tláhuac</span>
-                </p>
-                <p>
-                    <span class="carrera">Ingenieria en Sistemas Computacionales [8°]</span>
-                </p>
-                <p class="proyect">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque, hic!</p>
-
-                <div class="controls">
-                    <button class="btn btn-outline-success btn-small">
-                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-                    </button>
-                    <button class="btn btn-outline-danger btn-small">
-                        <i class="fa fa-times-circle" aria-hidden="true"></i>
-                    </button>
-                </div>
-            </div>
+        <div class="body-colum" id="sol">
+            
         </div>
     </div>
     <div class="columna">
         <div class="header-colum">
             <h3>Aceptados</h3>
         </div>
-        <div class="body-colum">
-            <div class="tarjeta-alumno" id="">
-                <h1>persona</h1>
-            </div>
+        <div class="body-colum" id="acept">
+            
         </div>
     </div>
     <div class="columna">
         <div class="header-colum">
             <h3>Trabajando</h3>
         </div>
-        <div class="body-colum">
-            <div class="tarjeta-alumno" id="">
-                <h1>persona</h1>
-            </div>
+        <div class="body-colum" id="working">
+            
         </div>
     </div>
     <div class="columna">
         <div class="header-colum">
             <h3>Liberados</h3>
         </div>
-        <div class="body-colum">
-            <div class="tarjeta-alumno" id="">
-                <h1>persona</h1>
-            </div>
+        <div class="body-colum" id="lib">
+            
+        </div>
+    </div>
+    <div class="columna">
+        <div class="header-colum">
+            <h3>Rechazados</h3>
+        </div>
+        <div class="body-colum" id="rech">
+            
         </div>
     </div>
 </div>
@@ -92,13 +72,12 @@ $result = $model->getPersons();
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalControlLabel">Control de registro</h5>
+                <h5 class="modal-title" id="ModalControlLabel">Registro de Residente</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" onsubmit="return setPerson()" class="needs-validation" id="form-person">
-                    <h5 id="title-form">some</h5>
-                    <input type="text" id="person" name="person" hidden>
+                <form method="POST" onsubmit="return setPractica()" class="needs-validation" id="form-res">
+                    <input type="text" id="person" name="person" value="c" hidden>
                     <div class="cont-form">
                         <!-- Parte Info Personal -->
                         <div class="part" id="part-0">
@@ -150,7 +129,7 @@ $result = $model->getPersons();
                                     <span class="input-group-text">
                                         <i class="fab fa-whatsapp" aria-hidden="true"></i>
                                     </span>
-                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Número a 10 digitos" required>
+                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Número a 10 digitos" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" required>
                                 </div>
                             </div>
                         </div>
@@ -163,7 +142,7 @@ $result = $model->getPersons();
                             <div class="form-flex">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Código Postal:</span>
-                                    <input type="text" class="form-control" name="cp" id="cp" required>
+                                    <input type="text" class="form-control" name="cp" id="cp" maxlength="6" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" required>
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Colonia:</span>
@@ -188,30 +167,18 @@ $result = $model->getPersons();
                     <div class="school-info">
                         <div class="input-groups mb-3">
                             <label for="school-text" class="form-label">Institución educativa:</label>
-                            <input class="form-control" list="datalistOptions" id="school-text" placeholder="Type to search...">
-                            <datalist id="datalistOptions">
-                                <option value="San Francisco">
-                                <option value="New York">
-                                <option value="Seattle">
-                                <option value="Los Angeles">
-                                <option value="Chicago">
-                            </datalist>
+                            <input class="form-control" name="escuela" list="datalistOptions" id="school-text" placeholder="Type to search..." maxlength="60" required>
+                            <datalist id="datalistOptions"></datalist>
                         </div>
 
                         <div class="input-groups mb-3">
                             <label for="carrera-text" class="form-label">Carrera:</label>
-                            <input class="form-control" list="carrera-options" id="carrera-text" placeholder="Type to search...">
-                            <datalist id="carrera-options">
-                                <option value="San Francisco">
-                                <option value="New York">
-                                <option value="Seattle">
-                                <option value="Los Angeles">
-                                <option value="Chicago">
-                            </datalist>
+                            <input class="form-control" name="carrera" list="carrera-options" id="carrera-text" placeholder="Type to search..." maxlength="60" required>
+                            <datalist id="carrera-options"></datalist>
                         </div>
 
                         <div class="form-floating">
-                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="grado" required>
                                 <option selected>Selecciona tu grado</option>
                                 <option value="1">1°</option>
                                 <option value="2">2°</option>
@@ -232,8 +199,19 @@ $result = $model->getPersons();
                             </select>
                             <label for="floatingSelect">Semestre / Cuatrimestre Cursado</label>
                         </div>
+
+                        <div class="input-group mt-3">
+                            <span class="input-group-text">Tipo de Estadia</span>
+                            <select name="tram" id="tram" class="form-select" required>
+                                <option value="" selected="true" disabled> Selecciona una estadia...</option>
+                                <option value="S">Sevicio Social</option>
+                                <option value="R">Practicas Profecionales</option>
+                            </select>
+                        </div>
+                        
                     </div>
                     <div class="control-form">
+                        <hr>
                         <button type="submit" class="btn btn-success" id="btn-send">
                             <i class="fa fa-paper-plane" aria-hidden="true"></i>
                             Enviar
@@ -242,7 +220,7 @@ $result = $model->getPersons();
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="closeModal">Cerrar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="closeModal">Cancelar</button>
             </div>
         </div>
     </div>
@@ -284,3 +262,4 @@ $result = $model->getPersons();
     </div>
 
     <?php require_once "footer.php" ?>
+    <script src="static/js/practicas.js"></script>

@@ -80,11 +80,15 @@ create table domicilio(
 
 /******Grados de persona*******/
 
-create table servicio(
+create table practicas(
 	id_servicio int not null,
     escuela varchar(60) not null,
     carrera varchar(60) not null,
     semestre int not null,
+    tipo char(1) not null,
+    estado int not null,
+    inicio date default null,
+    fin date default null,
     primary key(id_servicio),
     foreign key(id_servicio) references persona(id_p)
 );

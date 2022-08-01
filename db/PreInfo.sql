@@ -1559,8 +1559,8 @@ INSERT INTO cp_col VALUES('0','16880','SANTA CECILIA TEPETLAPA','XOCHIMILCO','7'
 INSERT INTO cp_col VALUES('0','16900','SAN FRANCISCO TLALNEPANTLA','XOCHIMILCO','7');
 
 INSERT INTO persona VALUES('0','LUIS ANGEL','MENDOZA','GARCIA','H','1997-08-02','angel_mendoza@lumega-mx.com','5564477055',1);
-INSERT INTO persona VALUES('0','JESSICA','MENDOZA','VILLEGAS','M','2000-01-01','jessi@lumega-mx.com','5564477056',1);
+-- INSERT INTO persona VALUES('0','JESSICA','MENDOZA','VILLEGAS','M','2000-01-01','jessi@lumega-mx.com','5564477056',1);
 insert into domicilio values(1,'GUADALUPE VICTORIA #267',1170);
-insert into domicilio values(2,'CALLEJON MINA #4',1164);
+-- insert into domicilio values(2,'CALLEJON MINA #4',1164);
 INSERT INTO angeles VALUES('1','0510','noImg.png','1');
-INSERT INTO angeles VALUES('2','0510','noImg.png','1');
+-- INSERT INTO angeles VALUES('2','0510','noImg.png','1');

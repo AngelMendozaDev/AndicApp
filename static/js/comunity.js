@@ -6,18 +6,26 @@ function getColonia(code) {
         type: 'POST',
         data: { tipo: 'getCols', code },
         success: function (response) {
-            console.log(response);
-            if (response != "Nan") {
+            //console.log(response);
+            if (response != '-1') {
                 data = JSON.parse(response);
                 $('#colonia').empty();
                 $('#colonia').append("<option value='0' selected='true' disabled>--Selecciona una opcion</option>")
-                $.each(data, function (key, item) {
-                    $('#colonia').append("<option value='" + item[0] + "'>" + item[1] + "</option>")
-                    alc = item[2];
-                    edo = item[3]
-                });
-                $('#alc').val(alc);
-                $('#edo').val(edo);
+                if (data.length > 0) {
+                    $.each(data, function (key, item) {
+                        $('#colonia').append("<option value='" + item[0] + "'>" + item[1] + "</option>")
+                        alc = item[2];
+                        edo = item[3]
+                    });
+                    $('#alc').val(alc);
+                    $('#edo').val(edo);
+                }
+            }
+            else {
+                $('#alc').val("");
+                $('#edo').val("");
+                $('#colonia').empty();
+                $('#colonia').append("<option value='0' selected='true' disabled>--Selecciona una opcion</option>")
             }
         }
     });

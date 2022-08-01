@@ -22,6 +22,15 @@ switch ($Type) {
     case 'getImage':
         echo json_encode($model->getImage($_POST['person']));
         break;
+    case 'getSchool':
+        echo json_encode($model->serchSchool($_POST['text']));
+        break;
+    case 'getCarrera':
+        echo json_encode($model->serchCarrera($_POST['text']));
+        break;
+        case 'getPracticas':
+            echo json_encode($model->getPracticas());
+            break;
     default:
         echo "error";
         break;

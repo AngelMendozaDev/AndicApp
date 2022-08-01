@@ -22,6 +22,7 @@
     display: flex;
     height: 80vh;
     margin-bottom: 30px;
+    overflow-x: scroll;
 }
 
 .columna{
@@ -45,11 +46,11 @@
 *******************************************************/
 
 .tarjeta-alumno{
-    width: 98%;
+    width: 350px;
     margin: auto;
     border: solid 2px rgba(0,0,0,0.3);
     border-radius: 10px;
-    height: 85px;
+    height: 100px;
     padding-bottom: 5px;
     transition: all 2s;
     margin-bottom: 10px;
@@ -62,7 +63,7 @@
 }
 
 .tarjeta-alumno .name-al{
-    font-size: 23px;
+    font-size: 22px;
     display: block;
     margin: auto;
     text-align: center;
@@ -71,14 +72,24 @@
 
 .tarjeta-alumno .escuela{
     font-weight: 500;
+    font-size: 14px;
 }
 
 .tarjeta-alumno .carrera{
     font-weight: 500;
     font-style: italic;
+    font-size: 18px;
 }
 
 .tarjeta-alumno:hover{
     height: auto;
-    transition: all 0.8s;
+    transition: all 5s;
+}
+
+/*Responsive*/
+
+@media (max-width:700){
+    .Tablero{
+        overflow-x: scroll;
+    }
 }

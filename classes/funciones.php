@@ -1,9 +1,16 @@
 <?php
 require_once "master.php";
-error_reporting(E_WARNING);
+error_reporting(E_WARNING | E_ERROR);
 
 class Procedures extends Master
 {
+    public function generatePass()
+    {
+        $caracteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTWXYZ0123456789';
+        $long = 10;
+        $pass = substr(str_shuffle($caracteres), 0, $long);
+        return $pass;
+    }
     public function login($us, $pass)
     {
         $conn = Master::conexion();
@@ -62,7 +69,7 @@ class Procedures extends Master
 
         if ($result->num_rows > 0)
             return $result->fetch_all();
-        return "Nan";
+        return -1;
     }
 
     public function deleteRegister($object)
@@ -264,61 +271,65 @@ class Procedures extends Master
     /**********************
      *  Comunity
      ********************************/
-    public function existPerson($number, $mail){
+    public function existPerson($number, $mail)
+    {
         $con = Master::conexion();
-        if($con == 3)
+        if ($con == 3)
             return 'err';
-        
+
         $query = $con->prepare('SELECT id_p FROM persona WHERE correo = ? OR correo = ?');
-        $query->bind_param('ss',$mail, $number);
+        $query->bind_param('ss', $mail, $number);
         $query->execute();
         $response = $query->get_result();
 
         $query->close();
 
-        if($response->num_rows > 0){
+        if ($response->num_rows > 0) {
             return true;
         }
         return false;
     }
 
-    public function setPerson($object){
+    public function setPerson($object)
+    {
         $con = Master::conexion();
-        if($con == 3)
+        if ($con == 3)
             return 'err';
-        
-        if(self::existPerson($object['phone'], $object['mail']) == true){
-            return -1;   
+
+        if (self::existPerson($object['phone'], $object['mail']) == true) {
+            return -1;
         }
-        
+
         $query = $con->prepare("call newPerson(?,?,?,?,?,?,?,?,?,?,?)");
-        $query->bind_param('sssssssssss',$object['name'], $object['app'], $object['apm'], $object['sex'], $object['date'], $object['mail'], $object['phone'], $object['street'], $object['cp'], $object['pass'], $object['perfil']);
+        $query->bind_param('sssssssssss', $object['name'], $object['app'], $object['apm'], $object['sex'], $object['date'], $object['mail'], $object['phone'], $object['street'], $object['cp'], $object['pass'], $object['perfil']);
         $response = $query->execute();
-       
+
         $query->close();
-        
+
         return $response;
     }
 
-    public function updatePerson($object){
+    public function updatePerson($object)
+    {
         $con = Master::conexion();
-        if($con == 3)
+        if ($con == 3)
             return 'err';
-        
+
         $query = $con->prepare("call updatePerson(?,?,?,?,?,?,?,?,?,?)");
-        $query->bind_param('ssssssssss',$object['name'], $object['app'], $object['apm'], $object['sex'], $object['date'], $object['mail'], $object['phone'], $object['street'], $object['cp'], $object['person']);
+        $query->bind_param('ssssssssss', $object['name'], $object['app'], $object['apm'], $object['sex'], $object['date'], $object['mail'], $object['phone'], $object['street'], $object['cp'], $object['person']);
         $response = $query->execute();
-       
+
         $query->close();
-        
+
         return $response;
     }
 
-    public function getPersons(){
+    public function getPersons()
+    {
         $con = Master::conexion();
-        if($con == 3)
+        if ($con == 3)
             return 'err';
-        
+
         $query = $con->prepare('SELECT * FROM getAllPerson');
         $query->execute();
         $data = $query->get_result();
@@ -328,13 +339,14 @@ class Procedures extends Master
         return $data;
     }
 
-    public function getPerson($folio){
+    public function getPerson($folio)
+    {
         $con = Master::conexion();
-        if($con == 3)
+        if ($con == 3)
             return 'err';
-        
+
         $query = $con->prepare("SELECT p.*, a.pass, a.picture, a.perfil, d.calle, d.cp as col, c.cp, c.mun, e.estado_n FROM persona AS p INNER JOIN angeles AS a ON a.id_angel = p.id_p INNER JOIN domicilio AS d ON d.id_dom = p.id_p INNER JOIN cp_col AS c ON d.cp = c.n_registro INNER JOIN estado as e ON e.id_estado = c.estado WHERE p.id_p = ?");
-        $query->bind_param('s',$folio);
+        $query->bind_param('s', $folio);
         $query->execute();
         $result = $query->get_result()->fetch_assoc();
 
@@ -343,13 +355,14 @@ class Procedures extends Master
         return $result;
     }
 
-    public function setImage($image,$person){
+    public function setImage($image, $person)
+    {
         $con = Master::conexion();
-        if($con == 3)
+        if ($con == 3)
             return 'err';
 
         $query = $con->prepare("CALL updateImage(?,?)");
-        $query->bind_param('ss',$image,$person);
+        $query->bind_param('ss', $image, $person);
         $response = $query->execute();
 
         $query->close();
@@ -357,13 +370,14 @@ class Procedures extends Master
         return $response;
     }
 
-    public function getImage($person){
+    public function getImage($person)
+    {
         $con = Master::conexion();
-        if($con == 3)
+        if ($con == 3)
             return 'err';
-        
+
         $query = $con->prepare('SELECT picture FROM angeles WHERE id_angel = ?');
-        $query->bind_param('s',$person);
+        $query->bind_param('s', $person);
         $query->execute();
         $response = $query->get_result();
 
@@ -372,17 +386,85 @@ class Procedures extends Master
         return $response->fetch_assoc();
     }
 
-    public function deletePerson($person){
+    public function deletePerson($person)
+    {
         $con = Master::conexion();
-        if($con == 3)
+        if ($con == 3)
             return 'err';
 
         $query = $con->prepare('CALL deletePerson(?)');
-        $query->bind_param('s',$person);
+        $query->bind_param('s', $person);
         $response = $query->execute();
 
         $query->close();
 
         return $response;
+    }
+
+    /******************************
+     * Practicas
+     ************************************************/
+    public function serchSchool($data)
+    {
+        $con = Master::conexion();
+        if ($con == 3)
+            return 'err';
+
+        $query = $con->prepare("SELECT escuela FROM practicas WHERE escuela LIKE '%$data%' GROUP BY escuela");
+        $query->execute();
+
+        $res = $query->get_result();
+
+        if ($res->num_rows > 0) {
+            return $res->fetch_all();
+        }
+        return "...";
+    }
+
+    public function serchCarrera($data)
+    {
+        $con = Master::conexion();
+        if ($con == 3)
+            return 'err';
+
+        $query = $con->prepare("SELECT carrera FROM practicas WHERE carrera LIKE '%$data%' GROUP BY carrera");
+        $query->execute();
+
+        $res = $query->get_result();
+
+        if ($res->num_rows > 0) {
+            return $res->fetch_all();
+        }
+        return "...";
+    }
+
+    public function newResidente($object)
+    {
+        $pass = self::generatePass();
+        $tipo = 3;
+        $con = Master::conexion();
+        if ($con == 3)
+            return 'err';        
+
+        $query = $con->prepare("CALL newResidente(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+        $query->bind_param('sssssssssssssss', strtoupper($object['nombre']), strtoupper($object['app']), strtoupper($object['apm']), $object['sex'], $object['nacimiento'], $object['mail'], $object['phone'], strtoupper($object['calle']), $object['colonia'], $pass, $tipo, strtoupper($object['escuela']), strtoupper($object['carrera']), $object['grado'], $object['tram']);
+        $res = $query->execute();
+        $query->close();
+
+        return $res;
+    }
+
+    public function getPracticas(){
+        $con = Master::conexion();
+        if($con == 3)
+            return 'err';
+        
+        $query = $con->prepare('SELECT * FROM getAllPracticas');
+        $query->execute();
+        $res = $query->get_result()->fetch_all();
+
+        $query->close();
+
+        return $res;
     }
 }
