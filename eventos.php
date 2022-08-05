@@ -5,6 +5,14 @@ $model = new Procedures();
 $result = $model->getEvents();
 ?>
 
+<style>
+    table.dataTable td, table.dataTable th {
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    vertical-align: middle;
+}
+</style>
+
 <div class="cont-general mb-5">
     <div class="cont-header">
         <center>
@@ -34,6 +42,7 @@ $result = $model->getEvents();
                     <tr class="text-center">
                         <th>Fecha</th>
                         <th>Titúlo</th>
+                        <th>Descripción</th>
                         <th>Imagen</th>
                         <th>Controles</th>
                     </tr>
@@ -43,10 +52,11 @@ $result = $model->getEvents();
                     if ($result->num_rows > 0) {
                         while ($data = $result->fetch_assoc()) {
                     ?>
-                            <tr class="text-center">
-                                <td><?php echo $data['fecha_inicio']; ?></td>
+                            <tr class="text-center align-items-center" style="align-items: center;">
+                                <td style="width: 160px;"><?php echo $data['fecha_inicio'] . "\n" . $data['fecha_final']; ?></td>
                                 <td><?php echo $data['titulo']; ?></td>
-                                <td>
+                                <td style="text-align: justify; padding: 5px; width: 450px;"><?php echo $data['descript']; ?></td>
+                                <td style="width: 60px;">
                                     <div class="img-box">
                                         <img src="static/media/events/<?php echo $data['foto']; ?>" width="50px">
                                     </div>
@@ -99,6 +109,13 @@ $result = $model->getEvents();
                             Fecha Inicio:
                         </span>
                         <input type="datetime-local" name="dateStart" id="dateStart" class="form-control" required>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">
+                            Fecha de Cierre:
+                        </span>
+                        <input type="datetime-local" name="dateEnd" id="dateEnd" class="form-control" required>
                     </div>
 
                     <div class="form-floating mb-2 mt-2">

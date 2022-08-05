@@ -44,6 +44,7 @@ create table evento(
 	id_evento int auto_increment not null,
     titulo varchar(40) not null,
     fecha_inicio datetime default now(),
+    fecha_final datetime not null,
     horario varchar(30) not null,
     foto varchar(20) not null,
     registro int not null,
@@ -89,6 +90,7 @@ create table practicas(
     estado int not null,
     inicio date default null,
     fin date default null,
+    proy mediumtext default null,
     primary key(id_servicio),
     foreign key(id_servicio) references persona(id_p)
 );

@@ -3,8 +3,10 @@ require_once "../classes/funciones.php";
 $model = new Procedures();
 
 // print_r($_POST);
-
-$Type = $_POST['tipo'];
+if(isset($_GET['tipo']))
+    $Type = $_GET['tipo'];
+else
+    $Type = $_POST['tipo'];
 
 switch ($Type) {
     case 'getCols':
@@ -28,9 +30,12 @@ switch ($Type) {
     case 'getCarrera':
         echo json_encode($model->serchCarrera($_POST['text']));
         break;
-        case 'getPracticas':
-            echo json_encode($model->getPracticas());
-            break;
+    case 'getPracticas':
+        echo json_encode($model->getPracticas());
+        break;
+    case 'getEvents':
+        echo json_encode($model->getAgenda());
+        break;
     default:
         echo "error";
         break;

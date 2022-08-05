@@ -194,6 +194,36 @@ class Procedures extends Master
         return $result;
     }
 
+    public function getAgenda()
+    {
+        $colores = array("#52BE80","#3498DB","#8E44AD","#1ABC9C");
+        $con = Master::conexion();
+        if ($con == 3)
+            return 'err';
+        $query = $con->prepare("select * from getAllEvents");
+        $query->execute();
+        $result = $query->get_result();
+        $cont = 0;
+        while($data = $result->fetch_assoc()){
+            $aux = explode(" ",$data['fecha_inicio']);
+            $aux2 = explode(" ",$data['fecha_final']);
+            $json[] = array(
+                "id" => $data['id_evento'],
+                "start" => $aux[0]."T".$aux[1],
+                "end" => $aux2[0]."T".$aux2[1],
+                "title" => $data['titulo'],
+                "color" => $colores[$cont]
+            );
+            if($cont >= 3)
+                $cont = 0;
+            else
+            $cont ++;
+        }
+        $query->close();
+
+        return $json;
+    }
+
     public function getEvent($event)
     {
         $con = Master::conexion();
@@ -225,10 +255,13 @@ class Procedures extends Master
         $auxDate = explode("T", $object['dateStart']);
         $dateStart = $auxDate[0] . " " . $auxDate[1];
 
+        $auxDate = explode("T", $object['dateEnd']);
+        $dateEnd = $auxDate[0] . " " . $auxDate[1];
+
         $registro = !isset($object['register']) ? 0 : 1;
 
-        $query = $con->prepare("CALL newEvent(?,?,?,?,?,?)");
-        $query->bind_param('ssssss', strtoupper($object['titleEvent']), $dateStart, $object['horario'], $media, $registro, $object['textEvent']);
+        $query = $con->prepare("CALL newEvent(?,?,?,?,?,?,?)");
+        $query->bind_param('sssssss', strtoupper($object['titleEvent']), $dateStart,$dateEnd, $object['horario'], $media, $registro, $object['textEvent']);
         $response = $query->execute();
         $query->close();
         return $response;
@@ -247,10 +280,13 @@ class Procedures extends Master
         $auxDate = explode("T", $object['dateStart']);
         $dateStart = $auxDate[0] . " " . $auxDate[1];
 
+        $auxDate = explode("T", $object['dateEnd']);
+        $dateEnd = $auxDate[0] . " " . $auxDate[1];
+
         $registro = !isset($object['register']) ? 0 : 1;
 
-        $query = $con->prepare("CALL updateEvent(?,?,?,?,?,?,?)");
-        $query->bind_param('sssssss', strtoupper($object['titleEvent']), $dateStart, $object['horario'], $media, $registro, $object['textEvent'], $object['idEvent']);
+        $query = $con->prepare("CALL updateEvent(?,?,?,?,?,?,?,?)");
+        $query->bind_param('ssssssss', strtoupper($object['titleEvent']), $dateStart, $dateEnd, $object['horario'], $media, $registro, $object['textEvent'], $object['idEvent']);
         $response = $query->execute();
         $query->close();
         return $response;
@@ -462,6 +498,20 @@ class Procedures extends Master
         $query = $con->prepare('SELECT * FROM getAllPracticas');
         $query->execute();
         $res = $query->get_result()->fetch_all();
+
+        $query->close();
+
+        return $res;
+    }
+
+    public function aceptado($obj){
+        $con = Master::conexion();
+        if($con == 3)
+            return 'err';
+        
+        $query = $con->prepare("UPDATE practicas SET estado = ?, inicio = ?, fin = ? WHERE id_servicio = ?");
+        $query->bind_param('ssss',$obj['edo'], $obj['inicio'], $obj['fin'], $obj['folio']);
+        $res = $query->execute();
 
         $query->close();
 

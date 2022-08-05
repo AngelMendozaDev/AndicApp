@@ -61,10 +61,13 @@ function getEvent(evento, type) {
             data = JSON.parse(response);
             aux = data.fecha_inicio.split(" ");
             fecha = aux[0] + "T" + aux[1];
+            aux = data.fecha_final.split(" ");
+            fecha2 = aux[0] + "T" + aux[1];
 
             $('#idEvent').val(data.id_evento);
             $('#titleEvent').val(data.titulo);
             $('#dateStart').val(fecha);
+            $('#dateEnd').val(fecha2);
             $('#horario').val(data.horario);
             $('#textEvent').val(data.descript);
             $('#registerControl').prop('checked', data.registro);

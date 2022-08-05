@@ -43,13 +43,14 @@ DELIMITER $$
 	CREATE PROCEDURE newEvent(
 		in title varchar(40),
         in fechai datetime,
+        in fechaf datetime,
         in horarios varchar(40),
         in foto varchar(10),
         in register int,
         in descrip mediumtext
         )
     BEGIN
-		INSERT INTO evento (titulo, fecha_inicio, horario, foto, registro, descript) values(title, fechai, horarios, foto, register, descrip);
+		INSERT INTO evento (titulo, fecha_inicio, fecha_final, horario, foto, registro, descript) values(title, fechai, fechaf, horarios, foto, register, descrip);
     END;
 $$
 
@@ -57,6 +58,7 @@ DELIMITER $$
 	CREATE PROCEDURE updateEvent(
 		in title varchar(40),
         in fechai datetime,
+        in fechaf datetime,
         in horarios varchar(40),
         in picture varchar(10),
         in register int,
@@ -64,7 +66,7 @@ DELIMITER $$
         in myEvent int
         )
     BEGIN
-		UPDATE evento SET titulo=title, fecha_inicio=fechai, horario=horarios, foto=picture, registro=register, descript=descrip WHERE id_evento = myEvent;
+		UPDATE evento SET titulo=title, fecha_inicio=fechai, fecha_final= fechaf, horario=horarios, foto=picture, registro=register, descript=descrip WHERE id_evento = myEvent;
     END;
 $$
 

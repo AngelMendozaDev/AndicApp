@@ -30,7 +30,7 @@ require_once "header.php";
             <h3>Solicitudes</h3>
         </div>
         <div class="body-colum" id="sol">
-            
+
         </div>
     </div>
     <div class="columna">
@@ -38,7 +38,7 @@ require_once "header.php";
             <h3>Aceptados</h3>
         </div>
         <div class="body-colum" id="acept">
-            
+
         </div>
     </div>
     <div class="columna">
@@ -46,7 +46,7 @@ require_once "header.php";
             <h3>Trabajando</h3>
         </div>
         <div class="body-colum" id="working">
-            
+
         </div>
     </div>
     <div class="columna">
@@ -54,7 +54,7 @@ require_once "header.php";
             <h3>Liberados</h3>
         </div>
         <div class="body-colum" id="lib">
-            
+
         </div>
     </div>
     <div class="columna">
@@ -62,7 +62,7 @@ require_once "header.php";
             <h3>Rechazados</h3>
         </div>
         <div class="body-colum" id="rech">
-            
+
         </div>
     </div>
 </div>
@@ -208,7 +208,7 @@ require_once "header.php";
                                 <option value="R">Practicas Profecionales</option>
                             </select>
                         </div>
-                        
+
                     </div>
                     <div class="control-form">
                         <hr>
@@ -226,40 +226,52 @@ require_once "header.php";
     </div>
 </div>
 
-
-<!-- Modal Image -->
-<div class="modal fade" id="pictureModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="pictureModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="pictureModalLabel">Gestor de Imagen</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="image-box">
-                    <img src="" alt="" id="imagePerson">
-                </div>
-                <hr>
-                <form method="POST" id="changeImageForm" onsubmit="return setImage()" enctype="multipart/form-data">
-                    <input type="text" name="persona" id="folP" hidden>
-                    <div class="input-group">
-                        <input type="file" name="picture" id="foto" class="form-control" required>
-                    </div>
-                    <br>
-                    <center>
-                        <button type="submit" id="btn-foto" class="btn btn-success">
-                            <i class="fas fa-sync"></i>
-                            &nbsp;
-                            Actualizar imagen
-                        </button>
-                    </center>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
+<div class="my-modal" id="my-modal">
+    <label for="my-modal-status" style="position: absolute; right: 20px; cursor:pointer; color: red;">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </label>
+    <input type="checkbox" id="my-modal-status" hidden>
+    <div class="header-modal">
+        <h2>Completa la informacion para continuar...</h2>
     </div>
+    <div class="body-modal">
+        <form id="form-acept" onsubmit="return aceptar()">
+            <input type="text" name="folio" id="f-folio" hidden>
+            <div class="input-group mb-3">
+                <span class="input-group-text">
+                    Fecha de Inicio:
+                </span>
+                <input type="date" class="form-control" id="f-inicio" name="inicio" required>
+            </div>
 
-    <?php require_once "footer.php" ?>
-    <script src="static/js/practicas.js"></script>
+            <div class="input-group mb-3">
+                <span class="input-group-text">
+                    Fecha de Finalización:
+                </span>
+                <input type="date" id="f-fin" class="form-control" name="fin" required>
+            </div>
+            <center>
+                <button type="submit" class="btn btn-primary">
+                    Enviar
+                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                </button>
+
+                <label for="my-modal-status" class="btn btn-danger">
+                    Cancelar
+                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                </label>
+            </center>
+
+        </form>
+    </div>
+    <hr>
+    <div class="footer-modal text-center">
+        <p style="font-size:10px;">
+            app.andic.org.mx Power By
+            <a href="https://www.lumega-mx.com" target="_blank">LUMEGA-MX</a>
+        </p>
+    </div>
+</div>
+
+<?php require_once "footer.php" ?>
+<script src="static/js/practicas.js"></script>

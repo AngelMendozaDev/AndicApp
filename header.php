@@ -128,7 +128,7 @@ $picture =  $foto != -1 ? $foto : "NO_DATA.png";
                                 </a>
                             </li>
                             <li class="option">
-                                <a href="">
+                                <a href="evtIns.php">
                                     <i class="fas fa-address-card"></i>
                                     &nbsp;
                                     Inscripciones
@@ -161,12 +161,12 @@ $picture =  $foto != -1 ? $foto : "NO_DATA.png";
                                     Linea temporal
                                 </a>
                             </li>
-                            <li class="option">
+                            <!-- <li class="option">
                                 <a href="">
                                     <i class="fab fa-xbox    "></i>
                                     optionx
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </div>
