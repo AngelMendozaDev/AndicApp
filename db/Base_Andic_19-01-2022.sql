@@ -81,24 +81,37 @@ create table domicilio(
 
 /******Grados de persona*******/
 
+create table institucion(
+	clave varchar(18) unique not null,
+    nombre_ins varchar(70) not null,
+    tipo_ins int not null,
+    repre varchar(30) not null,
+    sub varchar(30) default null,
+    phone varchar(10) not null,
+    direc mediumtext not null,
+    primary key(clave)
+);
+
+create table servicios(
+	registro_c int auto_increment not null,
+    inst varchar(18) not null,
+    service varchar(60) not null,
+    primary key(registro_c),
+    foreign key (inst) references institucion(clave)
+);
+
 create table practicas(
-	id_servicio int not null,
-    escuela varchar(60) not null,
-    carrera varchar(60) not null,
+	id_practicas int auto_increment not null,
+    institucion int not null,
     semestre int not null,
     tipo char(1) not null,
     estado int not null,
     inicio date default null,
     fin date default null,
     proy mediumtext default null,
-    primary key(id_servicio),
-    foreign key(id_servicio) references persona(id_p)
-);
-
-create table representante(
-	id_rep int not null,
-    primary key(id_rep),
-    foreign key (id_rep) references persona(id_p)
+    primary key(id_practicas),
+    foreign key(id_practicas) references persona(id_p),
+    foreign key(institucion) references servicios(registro_c)
 );
 
 create table angeles(
@@ -110,7 +123,13 @@ create table angeles(
     foreign key(id_angel) references persona(id_p)
 );
 
-/*******ALIADOS***********/
+/*******ALIADOS***********
+
+create table representante(
+	id_rep int not null,
+    primary key(id_rep),
+    foreign key (id_rep) references persona(id_p)
+);
 
 create table aliados(
 	id_aliado int auto_increment not null,
@@ -121,16 +140,6 @@ create table aliados(
     foreign key(rep) references representante(id_rep)
 );
 
-/***************RAMA APOYOS ANGELES Y ALIADOS******************/
- create table angeles_apoyo(
-	folio_apoyo int auto_increment not null,
-    angel int not null,
-    apoyo int not null,
-    primary key(folio_apoyo),
-    foreign key(angel) references angeles(id_angel),
-    foreign key(apoyo) references apoyos(id_apoyo)
- );
- 
  create table aliado_apoyo(
 	folio_apoyo int auto_increment not null,
     aliado int not null,
@@ -140,6 +149,17 @@ create table aliados(
     foreign key(apoyo) references apoyos(id_apoyo)
  );
  
+ */
+
+/***************RAMA APOYOS ANGELES Y ALIADOS******************/
+ create table angeles_apoyo(
+	folio_apoyo int auto_increment not null,
+    angel int not null,
+    apoyo int not null,
+    primary key(folio_apoyo),
+    foreign key(angel) references angeles(id_angel),
+    foreign key(apoyo) references apoyos(id_apoyo)
+ ); 
  /******************* RAMA DE EVENTOS ****************************/
  
  create table registro_event(

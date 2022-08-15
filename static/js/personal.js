@@ -59,7 +59,7 @@ function setPerson() {
     if ($('#colonia').val() != null) {
         $('#colonia').css('border', '1px solid rgba(0,0,0,0.5)')
         $.ajax({
-            url: "controllers/setComunity.php",
+            url: "controllers/setInfoU.php",
             type: "POST",
             data: $('#form-person').serialize(),
             success: function (response) {
@@ -186,7 +186,7 @@ function deletePerson(person) {
             if (willDelete) {
                 person = "d-"+person;
               $.ajax({
-                url:"controllers/setComunity.php",
+                url:"controllers/setInfoU.php",
                 type:"POST",
                 data:{person},
                 success:function(response){

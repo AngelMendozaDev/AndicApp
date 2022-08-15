@@ -1,83 +1,93 @@
 <?php
 require_once "header.php";
+require_once "classes/funciones.php";
+$model = new Procedures();
+$result = $model->getComunity();
 ?>
 <link rel="stylesheet" href="static/css/comunity.css">
-<link rel="stylesheet" href="static/css/practicas.css">
 
 <div class="cont-general">
     <div class="cont-header">
         <center>
-            <h3>Servicio Social y Practicas</h3>
+            <h3>Gestion de comunidad</h3>
         </center>
         <div class="alert alert-danger text-center" role="alert" id="my-alert">
             <button type="button" style="background: none; border: none; position: absolute; top: 5px; right: 10px;" onclick="$('#my-alert').remove()">
                 <i class="fa fa-times-circle" aria-hidden="true"></i>
             </button>
-            En este apartado podras gestionar la comunidad ANDIC, que realizara practicas o Servicio Social, dar de alta, modificar o eliminar la comunidad
+            En este apartado podras gestionar la comunidad ANDIC, dar de alta, modificar o eliminar la Comunidad
             <br>
-            <strong>LUMEGA-MX [Julio - 2022]</strong>
+            <strong>LUMEGA-MX [Marzo - 2022]</strong>
         </div>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalControl" onclick="prepareForm()">
-            Nuevo Proceso <i class="fa fa-plus" aria-hidden="true"></i>
+            Nuevo Registro <i class="fa fa-plus" aria-hidden="true"></i>
         </button>
     </div>
     <hr>
+    <div class="cont-body" style="overflow-y: scroll;">
+        <div class="table-box">
+            <table class="table table-hover table-bordered table-responsive" id="myTable">
+                <thead class="table-dark">
+                    <tr class="text-center">
+                        <th>Nombre(s)</th>
+                        <th>App</th>
+                        <th>Apm</th>
+                        <th>Sex</th>
+                        <th>Mail</th>
+                        <th>Foto</th>
+                        <th>Controles</th>
+                    </tr>
+                </thead>
+                <tbody class="bodyMyTable">
+                    <?php while ($data = $result->fetch_assoc()) { ?>
+                        <tr class="text-center">
+                            <td><?php echo $data['nombre'] ?></td>
+                            <td><?php echo $data['app'] ?></td>
+                            <td><?php echo $data['apm'] ?></td>
+                            <td><?php echo $data['sexo'] ?></td>
+                            <td><?php echo $data['correo'] ?></td>
+                            <td>
+                                <img src="static/media/pictures/<?php echo $data['picture'] ?>" class="table-picture" alt="">
+                            </td>
+                            <td>
+                                <button class="btn btn-info btn-small" data-bs-toggle="modal" data-bs-target="#pictureModal" onclick="getImage(<?php echo $data['id_p'] ?>)">
+                                    <i class="fas fa-image"></i>
+                                </button>
+
+                                <button class="btn btn-primary btn-small" data-bs-toggle="modal" data-bs-target="#ModalControl" onclick="getInfo('v','<?php echo $data['id_p'] ?>')">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </button>
+
+                                <button class="btn btn-warning btn-small" data-bs-toggle="modal" data-bs-target="#ModalControl" onclick="getInfo('e','<?php echo $data['id_p']  ?>')">
+                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                </button>
+
+                                <button class="btn btn-danger btn-small" onclick="deletePerson('<?php echo $data['id_p'] ?>')">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
-<div class="Tablero">
-    <div class="columna">
-        <div class="header-colum">
-            <h3>Solicitudes</h3>
-        </div>
-        <div class="body-colum" id="sol">
 
-        </div>
-    </div>
-    <div class="columna">
-        <div class="header-colum">
-            <h3>Aceptados</h3>
-        </div>
-        <div class="body-colum" id="acept">
-
-        </div>
-    </div>
-    <div class="columna">
-        <div class="header-colum">
-            <h3>Trabajando</h3>
-        </div>
-        <div class="body-colum" id="working">
-
-        </div>
-    </div>
-    <div class="columna">
-        <div class="header-colum">
-            <h3>Liberados</h3>
-        </div>
-        <div class="body-colum" id="lib">
-
-        </div>
-    </div>
-    <div class="columna">
-        <div class="header-colum">
-            <h3>Rechazados</h3>
-        </div>
-        <div class="body-colum" id="rech">
-
-        </div>
-    </div>
-</div>
 
 <!-- Modal New/ Update -->
 <div class="modal fade" id="ModalControl" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ModalControlLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ModalControlLabel">Registro de Residente</h5>
+                <h5 class="modal-title" id="ModalControlLabel">Control de registro</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="POST" onsubmit="return setPractica()" class="needs-validation" id="form-res">
-                    <input type="text" id="person" name="person" value="c" hidden>
+                <form method="POST" onsubmit="return setPerson()" class="needs-validation" id="form-person">
+                    <h5 id="title-form">some</h5>
+                    <input type="text" id="person" name="person" hidden>
                     <div class="cont-form">
                         <!-- Parte Info Personal -->
                         <div class="part" id="part-0">
@@ -142,7 +152,7 @@ require_once "header.php";
                             <div class="form-flex">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Código Postal:</span>
-                                    <input type="text" class="form-control" name="cp" id="cp" maxlength="6" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" required>
+                                    <input type="text" class="form-control" maxlength="6" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" name="cp" id="cp" required>
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Colonia:</span>
@@ -163,55 +173,8 @@ require_once "header.php";
                             </div>
                         </div>
                     </div>
-                    <hr>
-                    <div class="school-info">
-                        <div class="input-groups mb-3">
-                            <label for="school-text" class="form-label">Institución educativa:</label>
-                            <input class="form-control" style="text-transform: uppercase;" name="escuela" list="datalistOptions" id="school-text" placeholder="Type to search..." maxlength="60" required>
-                            <datalist id="datalistOptions"></datalist>
-                        </div>
 
-                        <div class="input-groups mb-3">
-                            <label for="carrera-text" class="form-label">Carrera:</label>
-                            <input class="form-control" style="text-transform: uppercase;" name="carrera" list="carrera-options" id="carrera-text" placeholder="Type to search..." maxlength="60" required>
-                            <datalist id="carrera-options"></datalist>
-                        </div>
-
-                        <div class="form-floating">
-                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="grado" required>
-                                <option selected>Selecciona tu grado</option>
-                                <option value="1">1°</option>
-                                <option value="2">2°</option>
-                                <option value="3">3°</option>
-                                <option value="4">4°</option>
-                                <option value="5">5°</option>
-                                <option value="6">6°</option>
-                                <option value="7">7°</option>
-                                <option value="8">8°</option>
-                                <option value="9">9°</option>
-                                <option value="10">10°</option>
-                                <option value="11">11°</option>
-                                <option value="12">12°</option>
-                                <option value="13">13°</option>
-                                <option value="14">14°</option>
-                                <option value="15">15°</option>
-                                <option value="16">16°</option>
-                            </select>
-                            <label for="floatingSelect">Semestre / Cuatrimestre Cursado</label>
-                        </div>
-
-                        <div class="input-group mt-3">
-                            <span class="input-group-text">Tipo de Estadia</span>
-                            <select name="tram" id="tram" class="form-select" required>
-                                <option value="" selected="true" disabled> Selecciona una estadia...</option>
-                                <option value="S">Sevicio Social</option>
-                                <option value="R">Practicas Profecionales</option>
-                            </select>
-                        </div>
-
-                    </div>
                     <div class="control-form">
-                        <hr>
                         <button type="submit" class="btn btn-success" id="btn-send">
                             <i class="fa fa-paper-plane" aria-hidden="true"></i>
                             Enviar
@@ -220,11 +183,46 @@ require_once "header.php";
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="closeModal">Cancelar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="closeModal">Cerrar</button>
             </div>
         </div>
     </div>
 </div>
 
+
+<!-- Modal Image -->
+<div class="modal fade" id="pictureModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="pictureModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pictureModalLabel">Gestor de Imagen</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="image-box">
+                    <img src="" alt="" id="imagePerson">
+                </div>
+                <hr>
+                <form method="POST" id="changeImageForm" onsubmit="return setImage()" enctype="multipart/form-data">
+                <input type="text" name="persona" id="folP" hidden>
+                    <div class="input-group">
+                        <input type="file" name="picture" id="foto" class="form-control" required>
+                    </div>
+                    <br>
+                    <center>
+                        <button type="submit" id="btn-foto" class="btn btn-success">
+                            <i class="fas fa-sync"></i>
+                            &nbsp;
+                            Actualizar imagen
+                        </button>
+                    </center>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <?php require_once "footer.php" ?>
-<script src="static/js/practicas.js"></script>
+<script src="static/js/comunity.js"></script>

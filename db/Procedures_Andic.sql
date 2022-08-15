@@ -5,8 +5,8 @@ CREATE VIEW getLastAct AS SELECT * FROM acciones ORDER BY id_accion DESC LIMIT 1
 CREATE VIEW getEvents AS select * from evento where fecha_inicio >= now();
 CREATE VIEW getAllEvents AS select * from evento order by fecha_inicio DESC;
 CREATE VIEW getLastEvent AS SELECT * FROM evento ORDER BY id_evento DESC LIMIT 1;
-CREATE VIEW getAllPerson AS SELECT p.*, a.picture FROM persona AS p INNER JOIN angeles AS a ON a.id_angel = p.id_p WHERE p.estado = 1 ORDER BY p.id_p DESC;
-CREATE VIEW getAllPracticas AS SELECT p.nombre, p.app, p.apm, pr.* FROM persona AS p INNER JOIN practicas AS pr On pr.id_servicio = p.id_p;
+CREATE VIEW getAllPerson AS SELECT p.*, a.picture FROM persona AS p INNER JOIN angeles AS a ON a.id_angel = p.id_p WHERE p.estado = 1 AND a.perfil = 1 ORDER BY p.id_p DESC;
+CREATE VIEW getComunity AS SELECT p.*, a.picture FROM persona AS p INNER JOIN angeles AS a ON a.id_angel = p.id_p WHERE p.estado = 1 AND a.perfil = 2 ORDER BY p.id_p DESC;
 
 DELIMITER $$
 	CREATE PROCEDURE newAction(

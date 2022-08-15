@@ -15,7 +15,7 @@ $result = $model->getPersons();
             <button type="button" style="background: none; border: none; position: absolute; top: 5px; right: 10px;" onclick="$('#my-alert').remove()">
                 <i class="fa fa-times-circle" aria-hidden="true"></i>
             </button>
-            En este apartado podras gestionar la comunidad ANDIC, dar de alta, modificar o eliminar el personal
+            En este apartado podras gestionar la comunidad ANDIC, dar de alta, modificar o eliminar la Comunidad
             <br>
             <strong>LUMEGA-MX [Marzo - 2022]</strong>
         </div>
@@ -25,7 +25,7 @@ $result = $model->getPersons();
         </button>
     </div>
     <hr>
-    <div class="cont-body">
+    <div class="cont-body" style="overflow-y: scroll;">
         <div class="table-box">
             <table class="table table-hover table-bordered table-responsive" id="myTable">
                 <thead class="table-dark">
@@ -139,7 +139,7 @@ $result = $model->getPersons();
                                     <span class="input-group-text">
                                         <i class="fab fa-whatsapp" aria-hidden="true"></i>
                                     </span>
-                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Número a 10 digitos" required>
+                                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Número a 10 digitos" maxlength="10" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" required>
                                 </div>
                             </div>
                         </div>
@@ -152,7 +152,7 @@ $result = $model->getPersons();
                             <div class="form-flex">
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Código Postal:</span>
-                                    <input type="text" class="form-control" name="cp" id="cp" required>
+                                    <input type="text" class="form-control" maxlength="6" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" name="cp" id="cp" required>
                                 </div>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Colonia:</span>
@@ -225,4 +225,4 @@ $result = $model->getPersons();
     </div>
 </div>
 <?php require_once "footer.php" ?>
-<script src="static/js/comunity.js"></script>
+<script src="static/js/personal.js"></script>

@@ -37,7 +37,7 @@ if ($type[0] == 'e') {
         "street" => strtoupper($_POST['calle']),
         "cp" => $_POST['colonia'],
         "pass" => $pass,
-        "perfil" => '1'
+        "perfil" => '2'
     );
     $res = $model->setPerson($data);
     $to = $data['mail'];

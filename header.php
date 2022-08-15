@@ -80,7 +80,7 @@ $picture =  $foto != -1 ? $foto : "NO_DATA.png";
                     <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionOptions">
                         <ul class="sub-menu">
                             <li class="option">
-                                <a href="personal.php">
+                                <a href="comunity.php">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     &nbsp;
                                     Comunidad
@@ -94,17 +94,17 @@ $picture =  $foto != -1 ? $foto : "NO_DATA.png";
                                 </a>
                             </li>
                             <li class="option">
-                                <a href="">
+                                <a href="personal.php">
                                     <i class="fa fa-id-card" aria-hidden="true"></i>
                                     &nbsp;
-                                    Representantes
+                                    Personal
                                 </a>
                             </li>
                             <li class="option">
-                                <a href="">
-                                    <i class="fa fa-industry" aria-hidden="true"></i>
+                                <a href="convenios.php">
+                                    <i class="fa fa-address-book" aria-hidden="true"></i>
                                     &nbsp;
-                                    Aliados
+                                    Convenios
                                 </a>
                             </li>
                         </ul>
