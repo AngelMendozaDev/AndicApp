@@ -7,3 +7,29 @@
 .mayus{
     text-transform: uppercase;
 }
+
+.pop-cont{
+    position: relative;
+    box-sizing: border-box;
+}
+
+.my-popover{
+    box-sizing: border-box;
+    position: absolute;
+    right:10px;
+    top: 10px;
+    opacity: 0;
+    z-index: -1;
+    width: 100px;
+    background-color: rgb(71, 71, 71);
+    color: white;
+    border-radius: 10px;
+    transition: all 1s;
+}
+
+.pop-cont:hover .my-popover{
+    right: -100px;
+    z-index: 1;
+    opacity: 1;
+    transition: all 2s;
+}

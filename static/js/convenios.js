@@ -60,6 +60,10 @@ function setInfo(){
     return false;
 }
 
+function getInst(clave){
+    $.ajax({});
+}
+
 $(function () {
     $('#lienzo').hide();
     $('#switchServices').change(function () {

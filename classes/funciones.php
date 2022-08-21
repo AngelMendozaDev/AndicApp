@@ -505,6 +505,38 @@ class Procedures extends Master
         return $res;
     }
 
+    public function getInstituciones(){
+        $con = Master::conexion();
+        if ($con == 3)
+            return 'err';
+        
+        $query = $con->prepare("SELECT * FROM institucion");
+        $query->execute();
+        $res = $query->get_result();
+
+        $query->close();
+
+        return $res;
+    }
+
+    public function getInstitucion($data){
+        $con = Master::conexion();
+        if ($con == 3)
+            return 'err';
+        
+        $query = $con->prepare("SELECT * FROM institucion where clave = ?");
+        $query->bind_param('s',$data);
+        $query->execute();
+        $res = $query->get_result();
+
+        $query->close();
+        if($res->num_rows > 0)
+            return $res->fetch_assoc();
+
+        return $res;
+    }
+
+    
 
 
     /******************************

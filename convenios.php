@@ -1,4 +1,9 @@
-<?php require_once "header.php" ?>
+<?php
+require_once "header.php";
+require_once "classes/funciones.php";
+$model = new Procedures();
+$res = $model->getInstituciones();
+?>
 <link rel="stylesheet" href="static/css/convenios.css">
 
 <div class="cont-general">
@@ -21,7 +26,45 @@
         </button>
     </div>
     <hr>
-    <div class="cont-body" style="overflow-y: scroll;"></div>
+    <div class="cont-body h-100" style="overflow-y: scroll; overflow-x: scroll;">
+        <table class="table table-hover table-responsive">
+            <thead class="table-dark">
+                <tr class="text-center">
+                    <th>Clave</th>
+                    <th>Nombre Institución</th>
+                    <th>Representante</th>
+                    <th>Telefono</th>
+                    <th>Controles</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($data = $res->fetch_assoc()) { ?>
+                    <tr class="text-center">
+                        <td><?php echo $data['clave'] ?></td>
+                        <td><?php echo $data['nombre_ins'] ?></td>
+                        <td><?php echo $data['sub'] ?></td>
+                        <td><?php echo $data['phone'] ?></td>
+                        <td>
+                            <button class="btn btn-primary btn-small pop-cont" data-bs-toggle="modal" data-bs-target="#modalAlta" onclick="getInst(<?php echo $data['clave'] ?>)">
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                <span class="my-popover">Ver registro</span>
+                            </button>
+                            <button class="btn btn-info btn-small pop-cont" onclick="getServ(<?php echo $data['clave'] ?>)">
+                                <i class="fa fa-list-ul" aria-hidden="true"></i>
+                                <span class="my-popover">Servicios</span>
+                            </button>
+                            <button class="btn btn-warning btn-small">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                            </button>
+                            <button class="btn btn-danger btn-small">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!-- Modal -->
@@ -75,7 +118,7 @@
                         <label class="form-check-label" for="switchServices">Contiene Carreras o Servicios especificos</label>
                     </div>
                     <hr>
-                 
+
                     <div id="lienzo">
                         <!-- Aqui se muestran las carreras -->
                     </div>
