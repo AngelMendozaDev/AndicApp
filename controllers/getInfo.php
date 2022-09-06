@@ -36,6 +36,9 @@ switch ($Type) {
     case 'getEvents':
         echo json_encode($model->getAgenda());
         break;
+    case 'getInst':
+        echo json_encode($model->getInstitucion($_POST['clave']));
+        break;
     default:
         echo "error";
         break;

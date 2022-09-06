@@ -45,11 +45,11 @@ $res = $model->getInstituciones();
                         <td><?php echo $data['sub'] ?></td>
                         <td><?php echo $data['phone'] ?></td>
                         <td>
-                            <button class="btn btn-primary btn-small pop-cont" data-bs-toggle="modal" data-bs-target="#modalAlta" onclick="getInst(<?php echo $data['clave'] ?>)">
+                            <button class="btn btn-primary btn-small pop-cont" data-bs-toggle="modal" data-bs-target="#modalAlta" onclick="getInst('<?php echo $data['clave'] ?>')">
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                 <span class="my-popover">Ver registro</span>
                             </button>
-                            <button class="btn btn-info btn-small pop-cont" onclick="getServ(<?php echo $data['clave'] ?>)">
+                            <button class="btn btn-info btn-small pop-cont" onclick="getServ('<?php echo $data['clave'] ?>')">
                                 <i class="fa fa-list-ul" aria-hidden="true"></i>
                                 <span class="my-popover">Servicios</span>
                             </button>
@@ -69,7 +69,7 @@ $res = $model->getInstituciones();
 
 <!-- Modal -->
 <div class="modal fade" id="modalAlta" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalAltaLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalAltaLabel">Control de contacto</h5>

@@ -3,6 +3,7 @@ item = 0
 
 function prepareForm() {
     $('#form-inst')[0].reset();
+    $('#clave').attr('disabled',false)
 }
 
 function removeItem(folio) {
@@ -61,7 +62,25 @@ function setInfo(){
 }
 
 function getInst(clave){
-    $.ajax({});
+    $('#clave').prop('disabled',true);
+    $.ajax({
+        url:'controllers/getInfo.php',
+        type: 'POST',
+        data:{tipo:"getInst",clave},
+        success:function(response){
+            console.log(response);
+            item = JSON.parse(response);
+            console.log(item);
+            $('#clave').val(item.clave);
+            $('#name_ins').val(item.nombre_ins);
+            $('#tipo_ins').val(item.tipo_ins);
+            $('#jefe').val(item.repre);
+            $('#repre').val(item.sub);
+            $('#phone').val(item.phone);
+            $('#floatingTextarea2').val(item.direc);
+            $('#phone').append("<h1>Hola Perro</h1>")
+        }
+    });
 }
 
 $(function () {
