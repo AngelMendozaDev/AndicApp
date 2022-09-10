@@ -35,5 +35,13 @@
 }
 
 .modal-body .input-group-text{
-    width: 150px;
+    width: 180px;
+}
+
+#lienzo .input-group-text{
+    width: auto;
+}
+
+#lienzo .input-group{
+    margin-bottom: 10px;
 }

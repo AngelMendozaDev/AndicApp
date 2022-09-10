@@ -530,11 +530,40 @@ class Procedures extends Master
         $res = $query->get_result();
 
         $query->close();
-        if($res->num_rows > 0)
-            return $res->fetch_assoc();
+        if($res->num_rows > 0){
+            //return $res->fetch_assoc();
+            $obj = array(
+                'info' => $res->fetch_assoc(),
+                'serv' => self::getServices($data)
+            );
+
+            return $obj;
+        }
 
         return $res;
     }
+
+    public function getServices($clave){
+        $con = Master::conexion();
+        if($con == 3)
+            return 'err';
+        
+        $query = $con->prepare("SELECT registro_c, service FROM servicios WHERE inst = ?");
+        $query->bind_param('s',$clave);
+        $query->execute();
+        $aux = $query->get_result();
+        while($data = $aux->fetch_assoc()){
+            $json[] = array(
+                "id" => $data['registro_c'],
+                "serv" => $data['service']
+            );
+        }
+
+        $query->close();
+
+        return $json;
+    }
+
 
     
 

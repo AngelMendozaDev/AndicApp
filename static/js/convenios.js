@@ -3,7 +3,24 @@ item = 0
 
 function prepareForm() {
     $('#form-inst')[0].reset();
-    $('#clave').attr('disabled',false)
+    $('#clave').attr('disabled', false)
+}
+
+function setStatus(flag){
+    $('#clave').attr('disabled',flag);
+    $('#name_ins').attr('disabled',flag);
+    $('#tipo_ins').attr('disabled',flag);
+    $('#jefe').attr('disabled',flag);
+    $('#repre').attr('disabled',flag);
+    $('#phone').attr('disabled',flag);
+    $('#floatingTextarea2').attr('disabled',flag);
+    $('#switchServices').attr('disabled',flag);
+    if(flag == true){
+        $('#btn-sendData').hide();
+    }
+    else{
+        $('#btn-sendData').show();
+    }
 }
 
 function removeItem(folio) {
@@ -35,25 +52,24 @@ function addItem() {
 }
 
 
-function setInfo(){
-
+function setInfo() {
     $.ajax({
-        url:'controllers/convenios.php?act=C',
-        type:'POST',
-        data:$('#form-inst').serialize(),
-        success:function(response){
+        url: 'controllers/convenios.php?act=C',
+        type: 'POST',
+        data: $('#form-inst').serialize(),
+        success: function (response) {
             console.log(response);
-            if(response.trim() == 1){
+            if (response.trim() == 1) {
                 swal("Información Guardada con exito!", "ANDIC [2022]", "success")
-                        .then((value) => {
-                            location.reload();
-                        });
+                    .then((value) => {
+                        location.reload();
+                    });
             }
-            else if(response.trim() == -1){
-                swal("Cuidado, posible duplicado!","La información que intentas guardar puede estar duplicada, revisa la información e intenta de nuevo... \n Andic A.C. [2022]", "info");
+            else if (response.trim() == -1) {
+                swal("Cuidado, posible duplicado!", "La información que intentas guardar puede estar duplicada, revisa la información e intenta de nuevo... \n Andic A.C. [2022]", "info");
             }
-            else{
-                swal("Oops! Ocurrio algo inesperado, intenta de nuevo....","Andic A.C. [2022]", "error");
+            else {
+                swal("Oops! Ocurrio algo inesperado, intenta de nuevo....", "Andic A.C. [2022]", "error");
             }
         }
     });
@@ -61,26 +77,76 @@ function setInfo(){
     return false;
 }
 
-function getInst(clave){
-    $('#clave').prop('disabled',true);
+function getInst(clave) {
+    //Deshabilitamos los campos
+    //Set Status Disabled
+    setStatus(true)
     $.ajax({
-        url:'controllers/getInfo.php',
+        url: 'controllers/getInfo.php',
         type: 'POST',
-        data:{tipo:"getInst",clave},
-        success:function(response){
+        data: { tipo: "getInst", clave },
+        success: function (response) {
             console.log(response);
             item = JSON.parse(response);
-            console.log(item);
-            $('#clave').val(item.clave);
-            $('#name_ins').val(item.nombre_ins);
-            $('#tipo_ins').val(item.tipo_ins);
-            $('#jefe').val(item.repre);
-            $('#repre').val(item.sub);
-            $('#phone').val(item.phone);
-            $('#floatingTextarea2').val(item.direc);
-            $('#phone').append("<h1>Hola Perro</h1>")
+            $('#clave').val(item.info.clave);
+            $('#name_ins').val(item.info.nombre_ins);
+            $('#tipo_ins').val(item.info.tipo_ins);
+            $('#jefe').val(item.info.repre);
+            $('#repre').val(item.info.sub);
+            $('#phone').val(item.info.phone);
+            $('#floatingTextarea2').val(item.info.direc);
+            for (i = 0; i < item.serv.length; i++) {
+                $('#lienzo').append("<div class='input-group' id='item-" + (i + 1) + "'>" +
+                    "<span class='input-group-text'>" +
+                    "<button type='button' class='btn btn-success' onclick='addItem()' disabled>" +
+                    "<i class='fa fa-plus' aria-hidden='true'></i>" +
+                    "</button>" +
+                    "</span>" +
+                    "<input type='text' class='form-control mayus' placeholder='Carrera o Servicio en el que se especializa' name='servicio[]' value='" + item.serv[i].serv + "' disabled required>" +
+                    "<button type='button' class='btn btn-danger btn-small' onclick='removeItem(" + (i + 1) + ")' disabled>" +
+                    "<i class='fa fa-times' aria-hidden='true'></i>" +
+                    "</button>" +
+                    "</div>");
+            }
+            $('#lienzo').show();
         }
     });
+}
+
+function getServ(clave){
+    $.ajax({
+        url:'controllers/getInfo.php',
+        type:'POST',
+        data:{tipo:'getServices',clave},
+        success:function(response){
+            console.log(response);
+            myJson = JSON.parse(response);
+            $('#lienzo-table').empty();
+            $.each(myJson,function(key,item){
+                console.log(item.serv);
+                $('#lienzo-table').append("<tr class='text-center'>"+
+                "<td>"+clave+"</td>"+
+                "<td>"+item.serv+"</td>"+
+                "<td>"+
+                    "<button class='btn btn-warning btn-small' onclick='setItem(`"+item.id+" `,` "+item.serv+" `)'>"+
+                        "<i class='fas fa-edit'></i>"+
+                    "</button>"+
+                    "<button class='btn btn-danger btn-small'>"+
+                        "<i class='fa fa-trash' aria-hidden='true'></i>"+
+                    "</button>"+
+                "</td>"+
+            "</tr>");
+            });
+        }
+    });
+}
+
+function setItem(id,service){
+    $('#serv-v').val(service);
+    $('#acction').val("E-"+id);
+    $('#btn-services').html("Actualizar");
+    $('#btn-services').removeClass("btn-success");
+    $('#btn-services').addClass("btn-primary");
 }
 
 $(function () {

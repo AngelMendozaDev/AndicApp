@@ -49,7 +49,7 @@ $res = $model->getInstituciones();
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                 <span class="my-popover">Ver registro</span>
                             </button>
-                            <button class="btn btn-info btn-small pop-cont" onclick="getServ('<?php echo $data['clave'] ?>')">
+                            <button class="btn btn-info btn-small pop-cont" data-bs-toggle="modal" data-bs-target="#modalServices" onclick="getServ('<?php echo $data['clave'] ?>')">
                                 <i class="fa fa-list-ul" aria-hidden="true"></i>
                                 <span class="my-popover">Servicios</span>
                             </button>
@@ -67,7 +67,7 @@ $res = $model->getInstituciones();
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal new-view-edit -->
 <div class="modal fade" id="modalAlta" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalAltaLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -125,7 +125,7 @@ $res = $model->getInstituciones();
 
                     <hr>
                     <center>
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" class="btn btn-success" id="btn-sendData">
                             <i class="fa fa-save" aria-hidden="true"></i>
                             &nbsp;
                             Guardar Registro
@@ -135,6 +135,68 @@ $res = $model->getInstituciones();
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Servicios -->
+<div class="modal fade" id="modalServices" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalServicesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalServicesLabel">Control de Servicios</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-g">
+                    <center>
+                        <h5>Servicios que ofrece</h5>
+                    </center>
+                    <hr width="80%" style="margin: auto;">
+                    <br>
+                    <form method="POST" onsubmit="return newService()">
+                        <input type="text" name="acction" id="acction" readonly>
+                        <div class="input-group">
+                            <span class="input-group-text"> Servicio que ofrece: </span>
+                            <input type="text" name="serv-v" id="serv-v" class="form-control" placeholder="Ej. Desarrollo de pagina Web" maxlength="60" required>
+                            <button class="btn btn-success" id="btn-services">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                Agregar Servicio
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="cont-table mt-5">
+                    <table class="table table-hover table-responsive table-bordered">
+                        <thead class="table-dark">
+                            <tr class="text-center">
+                                <th>institución</th>
+                                <th>Servicio</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lienzo-table">
+                            <tr class="text-center">
+                                <td>16106699</td>
+                                <td>Desarrollo de Paginas Web</td>
+                                <td>
+                                    <button class="btn btn-warning btn-small">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-small">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
             </div>
         </div>
     </div>
