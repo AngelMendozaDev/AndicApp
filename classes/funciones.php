@@ -505,6 +505,21 @@ class Procedures extends Master
         return $res;
     }
 
+
+    public function setService($data){
+        $con = Master::conexion();
+        if ($con == 3)
+            return 'err';
+        $query = $con->prepare('INSERT INTO servicios (inst, service) VALUES (?,?)');
+        $query->bind_param('ss', strtoupper($data['clave']), strtoupper($data['serv-v']));
+        $res = $query->execute();
+        
+        $query->close();
+
+        return $res;
+    }
+
+
     public function getInstituciones(){
         $con = Master::conexion();
         if ($con == 3)
@@ -565,6 +580,22 @@ class Procedures extends Master
     }
 
 
+    public function deleteService($data){
+        $con = Master::conexion();
+        if ($con == 3)
+            return 'err';
+        $con->query('SET FOREIGN_KEY_CHECKS = 0');
+        $query = $con->prepare('DELETE FROM servicios WHERE registro_c = ?');
+        $query->bind_param('s', $data );
+        $res = $query->execute();
+
+        $con->query('SET FOREIGN_KEY_CHECKS = 1');
+        $query->execute();
+        
+        $query->close();
+
+        return $res;
+    }
     
 
 

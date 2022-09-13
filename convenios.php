@@ -155,8 +155,12 @@ $res = $model->getInstituciones();
                     </center>
                     <hr width="80%" style="margin: auto;">
                     <br>
-                    <form method="POST" onsubmit="return newService()">
-                        <input type="text" name="acction" id="acction" readonly>
+                    <button type="button" class="btn btn-primary" id="btn-new" onclick="newServ()">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Nuevo
+                    </button>
+                    <form method="POST" onsubmit="return newService()" id="service-form">
+                        <input type="text" name="act" id="acction" readonly hidden>
+                        <input type="text" name="clave" id="clave-I" readonly>
                         <div class="input-group">
                             <span class="input-group-text"> Servicio que ofrece: </span>
                             <input type="text" name="serv-v" id="serv-v" class="form-control" placeholder="Ej. Desarrollo de pagina Web" maxlength="60" required>
@@ -196,7 +200,6 @@ $res = $model->getInstituciones();
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
             </div>
         </div>
     </div>
